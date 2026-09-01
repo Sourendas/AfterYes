@@ -1,8 +1,4 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
+/** SPDX-License-Identifier: Apache-2.0 */
 import React, { useEffect } from 'react';
 import { AudienceProvider, useAudience } from './context/AudienceContext';
 import { ChoiceGate } from './components/ChoiceGate';
@@ -18,7 +14,6 @@ import { Footer } from './components/Footer';
 const AppContent: React.FC = () => {
   const { audience, setAudience, currentPath, navigate } = useAudience();
 
-  // If path is /coaches or /clinics directly, sync the audience
   useEffect(() => {
     if (currentPath === '/coaches' && audience !== 'coach') {
       setAudience('coach');
@@ -27,7 +22,6 @@ const AppContent: React.FC = () => {
     }
   }, [currentPath, audience, setAudience]);
 
-  // Handle /pricing routing: navigate to active audience landing's pricing section
   useEffect(() => {
     if (currentPath === '/pricing') {
       const targetLanding = audience === 'clinic' ? '/clinics' : '/coaches';
@@ -39,39 +33,24 @@ const AppContent: React.FC = () => {
     }
   }, [currentPath, audience, navigate]);
 
-  // Gate view: If user has no audience selected yet, or has specifically requested / with no stored audience
   const shouldShowGate = (!audience && (currentPath === '/' || currentPath === '')) || (currentPath === '/' && !audience);
 
   if (shouldShowGate) {
     return <ChoiceGate />;
   }
 
-  // If user visits / but already has an audience preference saved in localStorage, route them directly to their landing
+  const shell = (page: React.ReactNode) => (
+    <div className="min-h-screen flex flex-col justify-between bg-white text-[#10203A]">
+      <HeaderNav />
+      <main className="flex-grow">{page}</main>
+      <Footer />
+    </div>
+  );
+
   if (currentPath === '/' && audience) {
-    if (audience === 'clinic') {
-      return (
-        <div className="min-h-screen flex flex-col justify-between bg-[#FAF7F2]">
-          <HeaderNav />
-          <main className="flex-grow">
-            <ClinicsPage />
-          </main>
-          <Footer />
-        </div>
-      );
-    } else {
-      return (
-        <div className="min-h-screen flex flex-col justify-between bg-[#FAF7F2]">
-          <HeaderNav />
-          <main className="flex-grow">
-            <CoachesPage />
-          </main>
-          <Footer />
-        </div>
-      );
-    }
+    return shell(audience === 'clinic' ? <ClinicsPage /> : <CoachesPage />);
   }
 
-  // Render respective routes
   const renderPage = () => {
     switch (currentPath) {
       case '/coaches':
@@ -85,7 +64,6 @@ const AppContent: React.FC = () => {
       case '/terms':
         return <TermsPage />;
       default:
-        // Check if path is known or 404
         if (currentPath === '/pricing') {
           return audience === 'clinic' ? <ClinicsPage /> : <CoachesPage />;
         }
@@ -93,15 +71,7 @@ const AppContent: React.FC = () => {
     }
   };
 
-  return (
-    <div className="min-h-screen flex flex-col justify-between bg-[#FAF7F2] text-[#1A1714]">
-      <HeaderNav />
-      <main className="flex-grow">
-        {renderPage()}
-      </main>
-      <Footer />
-    </div>
-  );
+  return shell(renderPage());
 };
 
 export default function App() {

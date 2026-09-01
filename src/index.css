@@ -1,37 +1,38 @@
 @import "tailwindcss";
 
 @theme {
-  --font-serif: 'Fraunces', Georgia, Cambria, 'Times New Roman', Times, serif;
+  --font-serif: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  --color-page: #FAF7F2;
+  --color-page: #FFFFFF;
   --color-surface: #FFFFFF;
-  --color-ink: #1A1714;
-  --color-mute: #6B645C;
-  --color-line: #E7E0D6;
-  --color-accent: #0F766E;
-  --color-accent-hover: #0C5F59;
-  --color-accent-soft: #E6F4F1;
-  --color-warning-strip: #F3EDE4;
+  --color-ink: #10203A;
+  --color-mute: #5C6B80;
+  --color-line: #D9E2EA;
+  --color-accent: #E25A48;
+  --color-accent-hover: #C94B3B;
+  --color-accent-soft: #E8F4F4;
+  --color-warning-strip: #F3F6F8;
 }
 
 body {
   font-family: var(--font-sans);
-  background-color: #FAF7F2;
-  color: #1A1714;
+  background-color: #FFFFFF;
+  color: #10203A;
   line-height: 1.55;
 }
 
 h1, h2, h3, h4, .font-serif {
-  font-family: var(--font-serif);
-  letter-spacing: -0.02em;
+  font-family: var(--font-sans);
+  letter-spacing: -0.035em;
+  font-weight: 700;
 }
 
 ::-webkit-scrollbar { width: 7px; }
-::-webkit-scrollbar-track { background: #FAF7F2; }
-::-webkit-scrollbar-thumb { background: #E7E0D6; border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: #CFC5B8; }
+::-webkit-scrollbar-track { background: #F3F6F8; }
+::-webkit-scrollbar-thumb { background: #D9E2EA; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #B7C4D0; }
 
-.ay-mock { box-shadow: 0 18px 40px -24px rgb(26 23 20 / 0.28); }
+.ay-mock { box-shadow: 0 24px 50px -28px rgb(16 32 58 / 0.35); }
 .ay-pulse { animation: ay-pulse 2.4s ease-in-out infinite; }
 .ay-flag-in { animation: ay-flag 3.2s ease-in-out infinite; }
 .ay-bubble { animation: ay-rise 0.7s ease-out both; }
@@ -40,10 +41,30 @@ h1, h2, h3, h4, .font-serif {
 .ay-step { animation: ay-rise 0.6s ease-out both; }
 .ay-rise-row { animation: ay-rise 0.55s ease-out both; }
 
+.ay-hero {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(105deg, rgba(10, 18, 36, 0.92) 0%, rgba(16, 32, 58, 0.78) 48%, rgba(16, 32, 58, 0.55) 100%),
+    radial-gradient(ellipse at 70% 40%, #2a3d63 0%, #0b1528 70%);
+  color: #FFFFFF;
+}
+.ay-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse at 70% 50%, black 20%, transparent 75%);
+  pointer-events: none;
+}
+
 @keyframes ay-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.55; } }
 @keyframes ay-flag {
   0%, 55% { box-shadow: none; }
-  70%, 85% { box-shadow: 0 0 0 4px rgb(15 118 110 / 0.12); }
+  70%, 85% { box-shadow: 0 0 0 4px rgb(226 90 72 / 0.18); }
   100% { box-shadow: none; }
 }
 @keyframes ay-rise {
@@ -51,9 +72,9 @@ h1, h2, h3, h4, .font-serif {
   to { opacity: 1; transform: translateY(0); }
 }
 @keyframes ay-slot {
-  0%, 40% { border-color: #E7E0D6; }
-  55%, 80% { border-color: #0F766E; }
-  100% { border-color: #E7E0D6; }
+  0%, 40% { border-color: #D9E2EA; }
+  55%, 80% { border-color: #E25A48; }
+  100% { border-color: #D9E2EA; }
 }
 
 @media (prefers-reduced-motion: reduce) {
