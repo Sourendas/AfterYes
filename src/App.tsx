@@ -6,6 +6,7 @@ import { HeaderNav } from './components/HeaderNav';
 import { CoachesPage } from './components/CoachesPage';
 import { ClinicsPage } from './components/ClinicsPage';
 import { ThanksPage } from './components/ThanksPage';
+import { OnboardingPage } from './components/OnboardingPage';
 import { PrivacyPage } from './components/PrivacyPage';
 import { TermsPage } from './components/TermsPage';
 import { NotFoundPage } from './components/NotFoundPage';
@@ -75,6 +76,8 @@ const AppContent: React.FC = () => {
         return <DemoPage kind="coach" />;
       case '/app/clinic':
         return <DemoPage kind="clinic" />;
+      case '/onboarding':
+        return <OnboardingPage />;
       case '/thanks':
         return <ThanksPage />;
       case '/privacy':

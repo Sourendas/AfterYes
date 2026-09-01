@@ -36,12 +36,38 @@ export interface WaitlistSubmission {
   createdAt: string;
 }
 
+export type ReminderTiming = '48h-before' | '24h-before' | '2h-before' | 'morning-of';
+export type FollowUpDelay = '24h' | '48h';
+
+export interface OnboardingConfig {
+  id: string;
+  audience: AudienceType;
+  email: string;
+  profile: {
+    businessName: string;
+    timezone: string;
+    reviewLink: string;
+  };
+  delivery: {
+    reminderTiming: ReminderTiming;
+    followUpDelay: FollowUpDelay;
+    messageTemplate: string;
+  };
+  channel: {
+    senderName: string;
+    supportEmail: string;
+    twilioPhone: string;
+  };
+  activatedAt: string;
+}
+
 export type PageRoute =
   | '/'
   | '/coaches'
   | '/clinics'
   | '/app/coach'
   | '/app/clinic'
+  | '/onboarding'
   | '/pricing'
   | '/privacy'
   | '/terms'
