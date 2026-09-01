@@ -25,14 +25,14 @@ const relabel = (id: string, label: string, fn: () => void) => {
 
 export const DemoHost: React.FC = () => {
   const [demo, setDemo] = useState<'coach' | 'clinic' | null>(null);
-  const { currentPath } = useAudience();
+  const { currentPath, navigate } = useAudience();
 
   useEffect(() => {
-    const coach = () => setDemo('coach');
+    const coach = () => navigate('/app/coach');
     const clinic = () => setDemo('clinic');
     window.addEventListener('afteryes:demo-coach', coach);
     window.addEventListener('afteryes:demo-clinic', clinic);
-    const offCoach = relabel('hero-coach-secondary-cta', 'Test Live Workflow', coach);
+    const offCoach = relabel('hero-coach-secondary-cta', 'See live dashboard', coach);
     const offClinic = relabel('hero-clinic-secondary-cta', 'Test Live Workflow', clinic);
     return () => {
       window.removeEventListener('afteryes:demo-coach', coach);
@@ -40,13 +40,13 @@ export const DemoHost: React.FC = () => {
       offCoach();
       offClinic();
     };
-  }, [currentPath]);
+  }, [currentPath, navigate]);
 
   return (
     <>
       <AdminDrawer />
       {demo === 'coach' && (
-        <DemoModal eyebrow="Coach sandbox" title="Test the retention workflow" onClose={() => setDemo(null)}>
+        <DemoModal eyebrow="Coach engine" title="Read-only monitoring dashboard" onClose={() => setDemo(null)}>
           <CoachDemo />
         </DemoModal>
       )}

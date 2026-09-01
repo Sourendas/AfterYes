@@ -1,4 +1,4 @@
-import type { AudienceType, OnboardingConfig, ReminderTiming } from '../types';
+import type { AudienceType, CalendarProvider, OnboardingConfig, ReminderTiming } from '../types';
 
 export const ONBOARDING_STORAGE_KEY = 'afteryes_onboarding';
 
@@ -27,6 +27,14 @@ export const REMINDER_OPTIONS: { value: ReminderTiming; label: string; hint: str
   { value: 'morning-of', label: 'Morning of', hint: 'Short same-day ping' },
 ];
 
+export const CALENDAR_PROVIDERS: { value: CalendarProvider; label: string }[] = [
+  { value: 'calendly', label: 'Calendly' },
+  { value: 'cal.com', label: 'Cal.com' },
+  { value: 'acuity', label: 'Acuity' },
+  { value: 'google', label: 'Google Calendar' },
+  { value: 'outlook', label: 'Outlook Calendar' },
+];
+
 export function detectTimezone() {
   try {
     return Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
@@ -39,11 +47,15 @@ export function defaultTemplate(audience: AudienceType, senderName: string) {
   if (audience === 'clinic') {
     return `Hi {{name}} — reminder for your appointment with ${senderName || '{{sender}}'} on {{when}}. Reply YES to confirm or use this thread to reschedule.`;
   }
-  return `Hi {{name}} — recap from today's session with ${senderName || '{{sender}}'}. Next check-in is {{next}}. Reply here if anything slips.`;
+  return `Hi {{name}} — great session today with ${senderName || '{{sender}}'}. Here is the recap and your review link. Next check-in is {{next}}.`;
 }
 
 export function reminderLabel(value: ReminderTiming) {
   return REMINDER_OPTIONS.find((option) => option.value === value)?.label ?? value;
+}
+
+export function calendarLabel(value: CalendarProvider) {
+  return CALENDAR_PROVIDERS.find((option) => option.value === value)?.label ?? value;
 }
 
 export function readOnboarding(): OnboardingConfig | null {
@@ -66,7 +78,24 @@ export async function postOnboardingWebhook(config: OnboardingConfig) {
     return { delivered: false as const, reason: 'missing_url' as const };
   }
 
-  const payload = { ...config, source: 'afteryes_self_serve_onboarding' };
+  const payload = {
+    ...config,
+    source: 'afteryes_self_serve_onboarding',
+    accountsConfig: {
+      business_name: config.profile.businessName,
+      timezone: config.profile.timezone,
+      review_link: config.profile.reviewLink,
+      calendar_provider: config.profile.calendarProvider,
+      calendar_url: config.profile.calendarUrl,
+      follow_up_delay: config.delivery.followUpDelay,
+      email_first: config.delivery.emailFirst,
+      sms_monthly_cap: config.delivery.smsMonthlyCap,
+      sender_name: config.channel.senderName,
+      support_email: config.channel.supportEmail,
+      twilio_phone: config.channel.twilioPhone,
+      status: 'active',
+    },
+  };
 
   try {
     const res = await fetch(url, {
