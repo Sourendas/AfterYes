@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
 import { AudienceType, WaitlistSubmission } from '../types';
 import { getPageMetadata, updateDocumentMetadata, PageMetadata } from '../utils/seo';
 import { notifyWaitlistWebhook } from '../utils/waitlistWebhook';
@@ -70,6 +70,9 @@ export const AudienceProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     return null;
   });
 
+  const latestRef = useRef(latestSubmission);
+  latestRef.current = latestSubmission;
+
   const setAudience = useCallback((newAudience: AudienceType) => {
     setAudienceState(newAudience);
     try {
@@ -90,8 +93,16 @@ export const AudienceProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   }, []);
 
   const navigate = useCallback((path: string, searchParamsString?: string) => {
-    const { pathname, searchFromArg } = splitPath(path);
-    const search = searchParamsString || searchFromArg;
+    let { pathname, searchFromArg } = splitPath(path);
+    let search = searchParamsString || searchFromArg;
+    if (pathname === '/thanks') {
+      pathname = '/onboarding';
+      const params = new URLSearchParams(search);
+      const latest = latestRef.current;
+      if (latest?.email && !params.get('email')) params.set('email', latest.email);
+      if (latest?.audience && !params.get('type')) params.set('type', latest.audience);
+      search = params.toString();
+    }
     const fullUrl = search ? `${pathname}?${search.replace(/^\?/, '')}` : pathname;
     window.history.pushState({}, '', fullUrl);
     setCurrentPath(pathname);
@@ -131,15 +142,16 @@ export const AudienceProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       return updated;
     });
 
+    latestRef.current = newSubmission;
     setLatestSubmission(newSubmission);
-    console.log('🎉 [AfterYes Waitlist Submission Payload]:', newSubmission);
+    console.log('[AfterYes Waitlist Submission Payload]:', newSubmission);
     void notifyWaitlistWebhook(newSubmission);
 
     const segment = newSubmission.audience;
     const value = segment === 'clinic' ? 99 : 29;
     const shared = { segment, value, currency: 'USD', method: 'founding_list' };
-    trackServer('waitlist_complete', shared, { event_id: newSubmission.id, path: '/thanks' });
-    trackServer('generate_lead', shared, { event_id: `${newSubmission.id}_lead`, path: '/thanks' });
+    trackServer('waitlist_complete', shared, { event_id: newSubmission.id, path: '/onboarding' });
+    trackServer('generate_lead', shared, { event_id: `${newSubmission.id}_lead`, path: '/onboarding' });
     return newSubmission;
   }, []);
 
