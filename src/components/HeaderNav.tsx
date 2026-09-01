@@ -63,7 +63,6 @@ export const HeaderNav: React.FC = () => {
 
   return (
     <>
-      {/* Top Dismissible Banner: teal text on #E6F4F1 */}
       {showBanner && (
         <div className="bg-[#E6F4F1] border-b border-[#D2EAE5] py-2 px-4 text-center text-xs sm:text-sm font-medium text-[#0F766E] flex items-center justify-center gap-3 relative z-50">
           <span>Founding rates open — 50 coaches at $29 and 30 clinics at $99.</span>
@@ -77,7 +76,6 @@ export const HeaderNav: React.FC = () => {
         </div>
       )}
 
-      {/* Main Nav Header */}
       <header
         className={`sticky top-0 z-40 w-full transition-all duration-150 ${
           isScrolled
@@ -86,7 +84,6 @@ export const HeaderNav: React.FC = () => {
         }`}
       >
         <div className="max-w-[1120px] mx-auto px-4 sm:px-6 flex items-center justify-between">
-          {/* Brand Wordmark (serif) */}
           <div className="flex items-center gap-3">
             <a
               href={isClinic ? '/clinics' : '/coaches'}
@@ -99,31 +96,14 @@ export const HeaderNav: React.FC = () => {
             </a>
           </div>
 
-          {/* Desktop Navigation Links */}
           <nav className="hidden md:flex items-center gap-8 text-base text-[#6B645C]">
-            <button
-              onClick={() => scrollToSection('how-it-works')}
-              className="hover:text-[#1A1714] transition-colors duration-150 cursor-pointer"
-            >
-              How it works
-            </button>
-            <button
-              onClick={() => scrollToSection('pricing')}
-              className="hover:text-[#1A1714] transition-colors duration-150 cursor-pointer"
-            >
-              Pricing
-            </button>
-            <button
-              onClick={() => scrollToSection('faq')}
-              className="hover:text-[#1A1714] transition-colors duration-150 cursor-pointer"
-            >
-              FAQ
-            </button>
+            <button onClick={() => scrollToSection('how-it-works')} className="hover:text-[#1A1714] transition-colors duration-150 cursor-pointer">How it works</button>
+            <button onClick={() => scrollToSection('what-you-get')} className="hover:text-[#1A1714] transition-colors duration-150 cursor-pointer">What you get</button>
+            <button onClick={() => scrollToSection('pricing')} className="hover:text-[#1A1714] transition-colors duration-150 cursor-pointer">Pricing</button>
+            <button onClick={() => scrollToSection('faq')} className="hover:text-[#1A1714] transition-colors duration-150 cursor-pointer">FAQ</button>
           </nav>
 
-          {/* Right Action Group: Switcher & Primary CTA */}
           <div className="hidden sm:flex items-center gap-3.5">
-            {/* Switcher Button: Secondary button (paper background, 1px line, ink text) */}
             <button
               onClick={handleSwitchAudience}
               id="nav-switch-audience-btn"
@@ -132,8 +112,6 @@ export const HeaderNav: React.FC = () => {
               <ArrowLeftRight className="w-3.5 h-3.5 text-[#0F766E]" />
               <span>{switcherLabel}</span>
             </button>
-
-            {/* Primary CTA: Filled teal, white text, 12px radius */}
             <button
               onClick={() => scrollToSection('signup-card')}
               id="nav-primary-cta"
@@ -143,7 +121,6 @@ export const HeaderNav: React.FC = () => {
             </button>
           </div>
 
-          {/* Mobile Menu Trigger */}
           <div className="flex sm:hidden items-center gap-2">
             <button
               onClick={() => scrollToSection('signup-card')}
@@ -161,30 +138,14 @@ export const HeaderNav: React.FC = () => {
           </div>
         </div>
 
-        {/* Mobile Dropdown */}
         {mobileMenuOpen && (
           <div className="sm:hidden border-t border-[#E7E0D6] bg-[#FAF7F2] px-4 py-5 space-y-4">
             <div className="flex flex-col space-y-3 text-base text-[#1A1714]">
-              <button
-                onClick={() => scrollToSection('how-it-works')}
-                className="text-left py-1 hover:text-[#0F766E]"
-              >
-                How it works
-              </button>
-              <button
-                onClick={() => scrollToSection('pricing')}
-                className="text-left py-1 hover:text-[#0F766E]"
-              >
-                Pricing
-              </button>
-              <button
-                onClick={() => scrollToSection('faq')}
-                className="text-left py-1 hover:text-[#0F766E]"
-              >
-                FAQ
-              </button>
+              <button onClick={() => scrollToSection('how-it-works')} className="text-left py-1 hover:text-[#0F766E]">How it works</button>
+              <button onClick={() => scrollToSection('what-you-get')} className="text-left py-1 hover:text-[#0F766E]">What you get</button>
+              <button onClick={() => scrollToSection('pricing')} className="text-left py-1 hover:text-[#0F766E]">Pricing</button>
+              <button onClick={() => scrollToSection('faq')} className="text-left py-1 hover:text-[#0F766E]">FAQ</button>
             </div>
-
             <div className="pt-3 border-t border-[#E7E0D6] flex flex-col gap-2.5">
               <button
                 onClick={handleSwitchAudience}
@@ -193,7 +154,6 @@ export const HeaderNav: React.FC = () => {
                 <ArrowLeftRight className="w-4 h-4 text-[#0F766E]" />
                 <span>Switch to {isClinic ? 'Coach ($29/mo)' : 'Clinic ($99/mo)'}</span>
               </button>
-
               <button
                 onClick={() => scrollToSection('signup-card')}
                 className="w-full py-3 rounded-[12px] bg-[#0F766E] text-white text-base font-medium flex items-center justify-center"
