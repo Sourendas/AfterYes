@@ -1,17 +1,47 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useAudience } from '../context/AudienceContext';
 import { ArrowLeft, CheckCircle2, Play } from 'lucide-react';
 import { AfterYesLogo } from './AfterYesLogo';
+import { initAnalytics, track, trackOnce } from '../utils/analytics';
 
 export const ThanksPage: React.FC = () => {
   const { searchParams, latestSubmission, navigate, clearAudience } = useAudience();
   const typeParam = searchParams.get('type');
   const isClinic = typeParam === 'clinic' || latestSubmission?.audience === 'clinic';
+  const segment = isClinic ? 'clinic' : 'coach';
   const demoPath = isClinic ? '/app/clinic' : '/app/coach';
+  const planValue = isClinic ? 99 : 29;
+
+  useEffect(() => {
+    initAnalytics();
+    const dedupe = latestSubmission?.id || `${segment}_${latestSubmission?.email || 'anon'}`;
+    trackOnce(`thanks_view_${dedupe}`, 'page_view', {
+      page_path: '/thanks',
+      page_title: 'AfterYes Thanks',
+      segment,
+    });
+    trackOnce(`waitlist_${dedupe}`, 'waitlist_complete', {
+      segment,
+      value: planValue,
+      currency: 'USD',
+      method: 'founding_list',
+    });
+    trackOnce(`lead_${dedupe}`, 'generate_lead', {
+      segment,
+      value: planValue,
+      currency: 'USD',
+    });
+  }, [latestSubmission, segment, planValue]);
 
   const goHome = () => {
+    track('thanks_back_home', { segment });
     clearAudience();
     navigate('/');
+  };
+
+  const openDemo = () => {
+    track('thanks_explore_demo', { segment, destination: demoPath });
+    navigate(demoPath);
   };
 
   return (
@@ -40,7 +70,7 @@ export const ThanksPage: React.FC = () => {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <button
               type="button"
-              onClick={() => navigate(demoPath)}
+              onClick={openDemo}
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-[22px] py-[14px] rounded-full bg-[#E25A48] text-white text-base font-medium hover:bg-[#C94B3B]"
             >
               <Play className="w-4 h-4" />
