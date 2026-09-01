@@ -9,6 +9,20 @@ declare global {
 }
 
 const GA_ID = (import.meta as { env?: Record<string, string> }).env?.VITE_GA_MEASUREMENT_ID || '';
+const CLIENT_KEY = 'afteryes_client_id';
+
+export function getClientId() {
+  if (typeof window === 'undefined') return 'anon.server';
+  try {
+    const existing = localStorage.getItem(CLIENT_KEY);
+    if (existing) return existing;
+    const id = `${Date.now()}.${Math.random().toString(36).slice(2, 12)}`;
+    localStorage.setItem(CLIENT_KEY, id);
+    return id;
+  } catch {
+    return `${Date.now()}.tmp`;
+  }
+}
 
 export function initAnalytics() {
   if (typeof window === 'undefined') return;
@@ -28,7 +42,7 @@ export function initAnalytics() {
       window.dataLayer!.push(args as unknown as Record<string, unknown>);
     };
   window.gtag('js', new Date());
-  window.gtag('config', GA_ID, { anonymize_ip: true });
+  window.gtag('config', GA_ID, { anonymize_ip: true, client_id: getClientId() });
 }
 
 export function track(event: string, params: TrackParams = {}) {
@@ -56,6 +70,27 @@ export function track(event: string, params: TrackParams = {}) {
   } catch {
     /* ignore */
   }
+}
+
+export function trackServer(
+  event: string,
+  params: TrackParams = {},
+  extra: { event_id?: string; path?: string } = {},
+) {
+  if (typeof window === 'undefined') return;
+  const body = {
+    event,
+    params,
+    event_id: extra.event_id,
+    path: extra.path || window.location.pathname,
+    client_id: getClientId(),
+  };
+  void fetch('/api/track', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+    keepalive: true,
+  }).catch(() => undefined);
 }
 
 export function trackOnce(dedupeKey: string, event: string, params?: TrackParams) {

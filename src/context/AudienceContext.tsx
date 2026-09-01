@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useEffect, useCallback } fr
 import { AudienceType, WaitlistSubmission } from '../types';
 import { getPageMetadata, updateDocumentMetadata, PageMetadata } from '../utils/seo';
 import { notifyWaitlistWebhook } from '../utils/waitlistWebhook';
+import { trackServer } from '../utils/analytics';
 
 interface AudienceContextType {
   audience: AudienceType | null;
@@ -133,6 +134,12 @@ export const AudienceProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     setLatestSubmission(newSubmission);
     console.log('🎉 [AfterYes Waitlist Submission Payload]:', newSubmission);
     void notifyWaitlistWebhook(newSubmission);
+
+    const segment = newSubmission.audience;
+    const value = segment === 'clinic' ? 99 : 29;
+    const shared = { segment, value, currency: 'USD', method: 'founding_list' };
+    trackServer('waitlist_complete', shared, { event_id: newSubmission.id, path: '/thanks' });
+    trackServer('generate_lead', shared, { event_id: `${newSubmission.id}_lead`, path: '/thanks' });
     return newSubmission;
   }, []);
 
