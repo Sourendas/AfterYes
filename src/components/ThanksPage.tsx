@@ -28,8 +28,12 @@ export const ThanksPage: React.FC = () => {
         <div className="w-12 h-12 rounded-[14px] bg-[#E8F4F4] text-[#E25A48] flex items-center justify-center mx-auto mb-6">
           <CheckCircle2 className="w-6 h-6" />
         </div>
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-sans font-extrabold text-[#10203A] tracking-tight mb-4">You’re on the {roleName} founding list.</h1>
-        <p className="text-base sm:text-lg text-[#5C6B80] max-w-lg mx-auto leading-relaxed mb-8">We’ll write from <strong className="text-[#10203A] font-medium">afteryes.team@gmail.com</strong>.</p>
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-sans font-extrabold text-[#10203A] tracking-tight mb-4">
+          You’re on the {roleName} founding list.
+        </h1>
+        <p className="text-base sm:text-lg text-[#5C6B80] max-w-lg mx-auto leading-relaxed mb-8">
+          We’ll write from <strong className="text-[#10203A] font-medium">afteryes.team@gmail.com</strong>.
+        </p>
         <div className="bg-white rounded-[20px] p-6 sm:p-8 border border-[#D9E2EA] mb-8 text-left">
           <div className="flex items-center justify-between pb-4 border-b border-[#D9E2EA] mb-4">
             <span className="text-xs uppercase tracking-[0.12em] font-medium text-[#5C6B80]">Founding Reservation</span>
@@ -46,7 +50,9 @@ export const ThanksPage: React.FC = () => {
           ) : (
             <p className="text-sm text-[#5C6B80]">Your submission has been recorded in this browser session and queued for early onboarding invitations.</p>
           )}
-          <div className="mt-6 pt-4 border-t border-[#D9E2EA] text-xs text-[#5C6B80]">First 50 coaches keep $29/mo and first 30 clinics keep $99/mo for 12 months.</div>
+          <div className="mt-6 pt-4 border-t border-[#D9E2EA] text-xs text-[#5C6B80]">
+            First 50 coaches keep $29/mo and first 30 clinics keep $99/mo for 12 months.
+          </div>
         </div>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5">
           <button onClick={() => navigate(isClinic ? '/clinics' : '/coaches')} className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-[22px] py-[14px] rounded-full bg-[#E25A48] text-white text-base font-medium hover:bg-[#C94B3B] transition-colors cursor-pointer">
