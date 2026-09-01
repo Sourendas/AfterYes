@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useAudience } from '../context/AudienceContext';
-import { ArrowLeft, CheckCircle2, Play } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, Play, SlidersHorizontal } from 'lucide-react';
 import { AfterYesLogo } from './AfterYesLogo';
 import { initAnalytics, trackServer } from '../utils/analytics';
 
@@ -10,6 +10,8 @@ export const ThanksPage: React.FC = () => {
   const isClinic = typeParam === 'clinic' || latestSubmission?.audience === 'clinic';
   const segment = isClinic ? 'clinic' : 'coach';
   const demoPath = isClinic ? '/app/clinic' : '/app/coach';
+  const email = latestSubmission?.email || '';
+  const onboardingPath = `/onboarding?type=${segment}${email ? `&email=${encodeURIComponent(email)}` : ''}`;
 
   useEffect(() => {
     initAnalytics();
@@ -31,6 +33,11 @@ export const ThanksPage: React.FC = () => {
     navigate(demoPath);
   };
 
+  const openOnboarding = () => {
+    trackServer('thanks_continue_setup', { segment, destination: '/onboarding' }, { path: '/thanks' });
+    navigate(onboardingPath);
+  };
+
   return (
     <div className="w-full min-h-[75vh] py-16 sm:py-24 px-4 sm:px-6 max-w-[1120px] mx-auto text-[#10203A]">
       <div className="max-w-xl mx-auto">
@@ -42,10 +49,10 @@ export const ThanksPage: React.FC = () => {
             <CheckCircle2 className="w-6 h-6" />
           </div>
           <h1 className="text-2xl sm:text-3xl font-sans font-extrabold text-[#10203A] tracking-tight mb-3">
-            You're on the AfterYes Founding List 🎉
+            You're on the AfterYes Founding List
           </h1>
           <p className="text-sm sm:text-base text-[#5C6B80] leading-relaxed mb-8">
-            We've recorded your details. We will reach out to schedule your onboarding walkthrough.
+            We've recorded your details. Finish setup now \u2014 no onboarding call required.
           </p>
           {latestSubmission && (
             <div className="text-left rounded-[16px] border border-[#D9E2EA] bg-[#F3F6F8] px-4 py-3 mb-8 text-sm text-[#10203A]">
@@ -57,8 +64,16 @@ export const ThanksPage: React.FC = () => {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <button
               type="button"
-              onClick={openDemo}
+              onClick={openOnboarding}
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-[22px] py-[14px] rounded-full bg-[#E25A48] text-white text-base font-medium hover:bg-[#C94B3B]"
+            >
+              <SlidersHorizontal className="w-4 h-4" />
+              Continue setup
+            </button>
+            <button
+              type="button"
+              onClick={openDemo}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-[22px] py-[14px] rounded-full bg-white hover:bg-[#F3F6F8] border-2 border-[#10203A] text-[#10203A] text-base font-medium"
             >
               <Play className="w-4 h-4" />
               Explore Live Demo
@@ -66,7 +81,7 @@ export const ThanksPage: React.FC = () => {
             <button
               type="button"
               onClick={goHome}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-[22px] py-[14px] rounded-full bg-white hover:bg-[#F3F6F8] border-2 border-[#10203A] text-[#10203A] text-base font-medium"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-[22px] py-[14px] rounded-full bg-white hover:bg-[#F3F6F8] border border-[#D9E2EA] text-[#10203A] text-base font-medium"
             >
               <ArrowLeft className="w-4 h-4" />
               Back to Home

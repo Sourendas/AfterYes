@@ -33,6 +33,19 @@ h1, h2, h3, h4, .font-serif {
 ::-webkit-scrollbar-thumb:hover { background: #B7C4D0; }
 
 .ay-mock { box-shadow: 0 24px 50px -28px rgb(16 32 58 / 0.35); }
+.ay-monitor-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: #2F9E8F;
+  box-shadow: 0 0 0 0 rgb(47 158 143 / 0.5);
+  animation: ay-monitor 1.8s ease-out infinite;
+}
+@keyframes ay-monitor {
+  0% { box-shadow: 0 0 0 0 rgb(47 158 143 / 0.5); }
+  70% { box-shadow: 0 0 0 10px rgb(47 158 143 / 0); }
+  100% { box-shadow: 0 0 0 0 rgb(47 158 143 / 0); }
+}
 .ay-pulse { animation: ay-pulse 2.4s ease-in-out infinite; }
 .ay-flag-in { animation: ay-flag 3.2s ease-in-out infinite; }
 .ay-bubble { animation: ay-rise 0.7s ease-out both; }
