@@ -3,7 +3,7 @@ import { useAudience } from '../context/AudienceContext';
 import { AudienceType } from '../types';
 import { Menu, X, ArrowLeftRight, XCircle } from 'lucide-react';
 import { AfterYesLogo } from './AfterYesLogo';
-import { openClinicDemo, openCoachDemo } from './DemoHost';
+import { openClinicDemo } from './DemoHost';
 
 export const HeaderNav: React.FC = () => {
   const { audience, setAudience, currentPath, navigate, clearAudience } = useAudience();
@@ -48,7 +48,7 @@ export const HeaderNav: React.FC = () => {
   const openDemo = () => {
     setMobileMenuOpen(false);
     if (audience === 'clinic' || currentPath === '/clinics' || currentPath === '/app/clinic') openClinicDemo();
-    else openCoachDemo();
+    else navigate('/app/coach');
   };
 
   const isClinic = audience === 'clinic';
