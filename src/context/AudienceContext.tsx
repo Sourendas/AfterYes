@@ -24,6 +24,12 @@ const LEGACY_AUDIENCE_STORAGE_KEY = 'keepbooked_audience';
 const WAITLIST_STORAGE_KEY = 'afteryes_waitlist';
 const LEGACY_WAITLIST_STORAGE_KEY = 'waitlist';
 
+const splitPath = (raw: string) => {
+  const [pathnameWithHash, searchFromArg] = raw.split('?');
+  const pathname = (pathnameWithHash.split('#')[0] || '/').replace(/\/$/, '') || '/';
+  return { pathname, searchFromArg: searchFromArg || '' };
+};
+
 export const AudienceProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [audience, setAudienceState] = useState<AudienceType | null>(() => {
     try {
@@ -35,7 +41,10 @@ export const AudienceProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     return null;
   });
 
-  const [currentPath, setCurrentPath] = useState<string>(() => (typeof window !== 'undefined' ? window.location.pathname || '/' : '/'));
+  const [currentPath, setCurrentPath] = useState<string>(() => {
+    if (typeof window === 'undefined') return '/';
+    return splitPath(window.location.pathname || '/').pathname;
+  });
   const [searchParams, setSearchParams] = useState<URLSearchParams>(() => new URLSearchParams(typeof window !== 'undefined' ? window.location.search : ''));
 
   const [savedWaitlist, setSavedWaitlist] = useState<WaitlistSubmission[]>(() => {
@@ -80,16 +89,18 @@ export const AudienceProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   }, []);
 
   const navigate = useCallback((path: string, searchParamsString?: string) => {
-    const fullUrl = searchParamsString ? `${path}?${searchParamsString}` : path;
+    const { pathname, searchFromArg } = splitPath(path);
+    const search = searchParamsString || searchFromArg;
+    const fullUrl = search ? `${pathname}?${search.replace(/^\?/, '')}` : pathname;
     window.history.pushState({}, '', fullUrl);
-    setCurrentPath(path);
-    setSearchParams(new URLSearchParams(searchParamsString || ''));
+    setCurrentPath(pathname);
+    setSearchParams(new URLSearchParams(search));
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
   useEffect(() => {
     const handlePopState = () => {
-      setCurrentPath(window.location.pathname || '/');
+      setCurrentPath(splitPath(window.location.pathname || '/').pathname);
       setSearchParams(new URLSearchParams(window.location.search));
     };
     window.addEventListener('popstate', handlePopState);

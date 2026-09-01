@@ -13,19 +13,25 @@ import { Footer } from './components/Footer';
 import { DemoHost } from './components/DemoHost';
 import { DemoPage } from './components/DemoPage';
 
+const normalizePath = (path: string) => {
+  const clean = (path.split('?')[0] || '/').replace(/\/$/, '');
+  return clean || '/';
+};
+
 const AppContent: React.FC = () => {
   const { audience, setAudience, currentPath, navigate } = useAudience();
+  const path = normalizePath(currentPath);
 
   useEffect(() => {
-    if (currentPath === '/coaches' && audience !== 'coach') {
+    if (path === '/coaches' && audience !== 'coach') {
       setAudience('coach');
-    } else if (currentPath === '/clinics' && audience !== 'clinic') {
+    } else if (path === '/clinics' && audience !== 'clinic') {
       setAudience('clinic');
     }
-  }, [currentPath, audience, setAudience]);
+  }, [path, audience, setAudience]);
 
   useEffect(() => {
-    if (currentPath === '/pricing') {
+    if (path === '/pricing') {
       const targetLanding = audience === 'clinic' ? '/clinics' : '/coaches';
       navigate(targetLanding);
       setTimeout(() => {
@@ -33,9 +39,9 @@ const AppContent: React.FC = () => {
         if (el) el.scrollIntoView({ behavior: 'smooth' });
       }, 100);
     }
-  }, [currentPath, audience, navigate]);
+  }, [path, audience, navigate]);
 
-  const shouldShowGate = (!audience && (currentPath === '/' || currentPath === '')) || (currentPath === '/' && !audience);
+  const shouldShowGate = path === '/' && !audience;
 
   if (shouldShowGate) {
     return (
@@ -55,12 +61,12 @@ const AppContent: React.FC = () => {
     </div>
   );
 
-  if (currentPath === '/' && audience) {
+  if (path === '/' && audience) {
     return shell(audience === 'clinic' ? <ClinicsPage /> : <CoachesPage />);
   }
 
   const renderPage = () => {
-    switch (currentPath) {
+    switch (path) {
       case '/coaches':
         return <CoachesPage />;
       case '/clinics':
@@ -75,10 +81,9 @@ const AppContent: React.FC = () => {
         return <PrivacyPage />;
       case '/terms':
         return <TermsPage />;
+      case '/pricing':
+        return audience === 'clinic' ? <ClinicsPage /> : <CoachesPage />;
       default:
-        if (currentPath === '/pricing') {
-          return audience === 'clinic' ? <ClinicsPage /> : <CoachesPage />;
-        }
         return <NotFoundPage />;
     }
   };
