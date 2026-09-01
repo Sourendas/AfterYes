@@ -10,6 +10,8 @@ import { PrivacyPage } from './components/PrivacyPage';
 import { TermsPage } from './components/TermsPage';
 import { NotFoundPage } from './components/NotFoundPage';
 import { Footer } from './components/Footer';
+import { DemoHost } from './components/DemoHost';
+import { DemoPage } from './components/DemoPage';
 
 const AppContent: React.FC = () => {
   const { audience, setAudience, currentPath, navigate } = useAudience();
@@ -36,7 +38,12 @@ const AppContent: React.FC = () => {
   const shouldShowGate = (!audience && (currentPath === '/' || currentPath === '')) || (currentPath === '/' && !audience);
 
   if (shouldShowGate) {
-    return <ChoiceGate />;
+    return (
+      <>
+        <ChoiceGate />
+        <DemoHost />
+      </>
+    );
   }
 
   const shell = (page: React.ReactNode) => (
@@ -44,6 +51,7 @@ const AppContent: React.FC = () => {
       <HeaderNav />
       <main className="flex-grow">{page}</main>
       <Footer />
+      <DemoHost />
     </div>
   );
 
@@ -57,6 +65,10 @@ const AppContent: React.FC = () => {
         return <CoachesPage />;
       case '/clinics':
         return <ClinicsPage />;
+      case '/app/coach':
+        return <DemoPage kind="coach" />;
+      case '/app/clinic':
+        return <DemoPage kind="clinic" />;
       case '/thanks':
         return <ThanksPage />;
       case '/privacy':
