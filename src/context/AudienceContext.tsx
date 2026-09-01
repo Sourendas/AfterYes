@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { AudienceType, WaitlistSubmission } from '../types';
 import { getPageMetadata, updateDocumentMetadata, PageMetadata } from '../utils/seo';
+import { notifyWaitlistWebhook } from '../utils/waitlistWebhook';
 
 interface AudienceContextType {
   audience: AudienceType | null;
@@ -27,28 +28,15 @@ export const AudienceProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const [audience, setAudienceState] = useState<AudienceType | null>(() => {
     try {
       const stored = localStorage.getItem(AUDIENCE_STORAGE_KEY) || localStorage.getItem(LEGACY_AUDIENCE_STORAGE_KEY);
-      if (stored === 'coach' || stored === 'clinic') {
-        return stored;
-      }
+      if (stored === 'coach' || stored === 'clinic') return stored;
     } catch {
       // ignore
     }
     return null;
   });
 
-  const [currentPath, setCurrentPath] = useState<string>(() => {
-    if (typeof window !== 'undefined') {
-      return window.location.pathname || '/';
-    }
-    return '/';
-  });
-
-  const [searchParams, setSearchParams] = useState<URLSearchParams>(() => {
-    if (typeof window !== 'undefined') {
-      return new URLSearchParams(window.location.search);
-    }
-    return new URLSearchParams();
-  });
+  const [currentPath, setCurrentPath] = useState<string>(() => (typeof window !== 'undefined' ? window.location.pathname || '/' : '/'));
+  const [searchParams, setSearchParams] = useState<URLSearchParams>(() => new URLSearchParams(typeof window !== 'undefined' ? window.location.search : ''));
 
   const [savedWaitlist, setSavedWaitlist] = useState<WaitlistSubmission[]>(() => {
     try {
@@ -99,30 +87,21 @@ export const AudienceProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
-  // Listen to popstate (back/forward browser events)
   useEffect(() => {
     const handlePopState = () => {
       setCurrentPath(window.location.pathname || '/');
       setSearchParams(new URLSearchParams(window.location.search));
     };
-
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
-  // Compute current page metadata
-  const currentMetadata = getPageMetadata({
-    path: currentPath,
-    audience,
-    searchParams,
-  });
+  const currentMetadata = getPageMetadata({ path: currentPath, audience, searchParams });
 
-  // Update SEO Document Title and OG/Twitter tags dynamically
   useEffect(() => {
     updateDocumentMetadata(currentMetadata);
   }, [currentMetadata]);
 
-  // Add waitlist entry helper
   const addWaitlistEntry = useCallback((entry: Omit<WaitlistSubmission, 'id' | 'createdAt'>): WaitlistSubmission => {
     const newSubmission: WaitlistSubmission = {
       ...entry,
@@ -141,11 +120,8 @@ export const AudienceProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     });
 
     setLatestSubmission(newSubmission);
-
-    // Prompt requirement: console.log the payload on submission
     console.log('🎉 [AfterYes Waitlist Submission Payload]:', newSubmission);
-    
-    // TODO: hook Dodo/Polar checkout. Until payments exist, this is a waitlist.
+    void notifyWaitlistWebhook(newSubmission);
     return newSubmission;
   }, []);
 

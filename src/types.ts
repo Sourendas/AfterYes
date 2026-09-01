@@ -36,10 +36,12 @@ export interface WaitlistSubmission {
   createdAt: string;
 }
 
-export type PageRoute = 
+export type PageRoute =
   | '/'
   | '/coaches'
   | '/clinics'
+  | '/app/coach'
+  | '/app/clinic'
   | '/pricing'
   | '/privacy'
   | '/terms'
