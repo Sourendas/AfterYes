@@ -4,6 +4,7 @@ import { ClinicWaitlistData } from '../types';
 import { ArrowRight, Check, ChevronDown, PhoneCall, Calendar, ShieldAlert, Clock, ArrowDown } from 'lucide-react';
 import { AnimatedClinicMock } from './ProductMocks';
 import { ClinicServiceStories } from './ServiceStories';
+import { ProofStrip, ProblemBand, WeekTimeline, CompareTable, NotThis, MidInvite } from './LandingExtras';
 
 export const ClinicsPage: React.FC = () => {
   const { submitWaitlist, navigate } = useAudience();
@@ -39,25 +40,34 @@ export const ClinicsPage: React.FC = () => {
   const faqs = [
     { q: 'Patient records / EHR?', a: 'No. Calendar and contact reminders only. AfterYes handles appointment scheduling, confirmations, and no-show follow-ups.' },
     { q: 'Medical advice?', a: 'Never. AfterYes is strictly scheduling software, not a medical device. We don’t diagnose, treat, or advise.' },
+    { q: 'Is this NexHealth or Weave?', a: 'Those are full practice platforms. AfterYes is the thin reminder + no-show + optional after-hours layer for 1–2 provider clinics.' },
     { q: 'US and India?', a: 'Calendar-first everywhere. Phone numbers by country later as telephony integrations expand.' },
+    { q: 'Do I have to add voice?', a: 'No. Start with reminders and the no-show list at $99/mo. Voice is +$49/mo with 100 minutes included.' },
   ];
 
   return (
     <div className="w-full text-[#1A1714]">
-      <section className="pt-16 sm:pt-24 pb-12 sm:pb-16 px-4 sm:px-6 max-w-[1120px] mx-auto">
-        <div className="max-w-3xl mx-auto text-center">
-          <div className="text-xs uppercase tracking-[0.12em] font-sans font-medium text-[#6B645C] mb-4">FOR HEALTHCARE PRACTICES & CLINICS</div>
-          <h1 className="text-[1.85rem] sm:text-5xl lg:text-6xl font-serif text-[#1A1714] tracking-tight leading-[1.12] mb-6">After 6pm, empty rings <br className="hidden sm:inline" />are empty chairs.</h1>
-          <p className="text-base sm:text-lg text-[#6B645C] leading-relaxed mb-8 max-w-2xl mx-auto">Reminders, a no-show list, and an optional receptionist that books the calendar. No clinical advice. Ever.</p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5">
-            <button onClick={scrollToSignup} id="hero-clinic-primary-cta" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-[22px] py-[14px] rounded-[12px] bg-[#0F766E] text-white text-base font-medium hover:bg-[#0C5F59] transition-colors duration-150 cursor-pointer"><span>Get founding $99/mo</span><ArrowRight className="w-4 h-4" /></button>
-            <button onClick={scrollToFlow} id="hero-clinic-secondary-cta" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-[22px] py-[14px] rounded-[12px] bg-[#FAF7F2] hover:bg-[#F3EDE4] border border-[#E7E0D6] text-[#1A1714] text-base font-medium transition-colors duration-150 cursor-pointer"><span>How booking works</span><ArrowDown className="w-4 h-4 text-[#6B645C]" /></button>
+      <section className="pt-14 sm:pt-20 pb-12 sm:pb-16 px-4 sm:px-6 max-w-[1120px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+          <div className="text-center lg:text-left">
+            <div className="text-xs uppercase tracking-[0.12em] font-sans font-medium text-[#6B645C] mb-4">FOR HEALTHCARE PRACTICES & CLINICS</div>
+            <h1 className="text-[1.85rem] sm:text-5xl font-serif text-[#1A1714] tracking-tight leading-[1.12] mb-6">After 6pm, empty rings are empty chairs.</h1>
+            <p className="text-base sm:text-lg text-[#6B645C] leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0">Reminders, a no-show list, and an optional receptionist that books the calendar. No clinical advice. Ever.</p>
+            <div className="flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-3.5">
+              <button onClick={scrollToSignup} id="hero-clinic-primary-cta" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-[22px] py-[14px] rounded-[12px] bg-[#0F766E] text-white text-base font-medium hover:bg-[#0C5F59] transition-colors duration-150 cursor-pointer"><span>Get founding $99/mo</span><ArrowRight className="w-4 h-4" /></button>
+              <button onClick={scrollToFlow} id="hero-clinic-secondary-cta" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-[22px] py-[14px] rounded-[12px] bg-[#FAF7F2] hover:bg-[#F3EDE4] border border-[#E7E0D6] text-[#1A1714] text-base font-medium transition-colors duration-150 cursor-pointer"><span>How booking works</span><ArrowDown className="w-4 h-4 text-[#6B645C]" /></button>
+            </div>
+            <p className="text-xs text-[#6B645C] mt-4">First 30 clinics keep $99 for 12 months. No charge today.</p>
+            <div className="mt-6 bg-[#F3EDE4] border border-[#E7E0D6] rounded-[14px] px-4 py-3 text-xs text-[#1A1714] font-medium flex items-start sm:items-center gap-2">
+              <ShieldAlert className="w-4 h-4 text-[#0F766E] shrink-0 mt-0.5 sm:mt-0" />
+              <span>Scheduling software only. Not a medical device. We don’t diagnose, treat, or advise.</span>
+            </div>
           </div>
-          <p className="text-xs text-[#6B645C] mt-4">First 30 clinics keep $99 for 12 months. No charge today.</p>
+          <div><AnimatedClinicMock /></div>
         </div>
-        <div className="mt-10 max-w-2xl mx-auto"><div className="bg-[#F3EDE4] border border-[#E7E0D6] rounded-[14px] px-4 py-3 text-center text-xs text-[#1A1714] font-medium flex items-center justify-center gap-2"><ShieldAlert className="w-4 h-4 text-[#0F766E] shrink-0" /><span>Scheduling software only. Not a medical device. We don’t diagnose, treat, or advise.</span></div></div>
-        <div className="mt-12 max-w-3xl mx-auto"><AnimatedClinicMock /></div>
       </section>
+      <ProofStrip items={['Calendar-first reminders','No-show recovery list','Optional after-hours voice','Founding lock $99/mo']} />
+      <ProblemBand eyebrow="Empty chairs are booked money" title="Most no-shows are decided the night before." lead="The slot was on the calendar. Nobody confirmed. At 10:28 the chair is empty and the waitlist was never offered the hour." columns={[{ title: 'One reminder, too late', body: 'A single text the morning of does not give anyone time to move. The chair dies quietly.' },{ title: 'Front desk leaves at 6', body: 'The new-patient call at 7:14 rings out. Tomorrow’s 10:30 stays empty.' },{ title: 'No-shows have no owner', body: 'Staff hear about it when the next patient is already waiting. The waitlist never gets the slot.' }]} />
       <section id="how-it-works" className="py-16 sm:py-24 border-t border-[#E7E0D6]">
         <div className="max-w-[1120px] mx-auto px-4 sm:px-6">
           <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16"><div className="text-xs uppercase tracking-[0.12em] font-sans font-medium text-[#6B645C] mb-2">HOW BOOKING WORKS</div><h2 className="text-2xl sm:text-4xl font-serif text-[#1A1714]">Three steps to keep clinic chairs filled</h2></div>
@@ -69,6 +79,9 @@ export const ClinicsPage: React.FC = () => {
         </div>
       </section>
       <ClinicServiceStories />
+      <WeekTimeline eyebrow="A week in a 1–2 provider clinic" title="How a chair gets protected" steps={[{ day: 'Mon', title: 'Calendar syncs', body: 'Thursday 10:30 is on the book. Reminder sequence is armed automatically.' },{ day: 'Tue', title: '48-hour confirm', body: 'Patient gets SMS + email. Confirm or reschedule. Silence marks the slot at risk.' },{ day: 'Thu 8am', title: '2-hour nudge', body: 'Short reminder. If they drop, the slot hits the recovery list immediately.' },{ day: 'Thu 7pm', title: 'Optional voice', body: 'A new-patient call books Friday. No clinical advice. Just a slot on the calendar.' }]} />
+      <CompareTable title="Not a hospital platform. A chair-protection layer." lead="NexHealth and Weave run the whole front office. AfterYes is reminders, recovery, and optional after-hours booking." headers={['Job', 'Full practice platform', 'AfterYes']} rows={[{ label: 'EHR / clinical records', a: 'Often bundled', b: 'Never — scheduling only' },{ label: 'Insurance / payments', a: 'Core product', b: 'Not this' },{ label: 'Reminders that ask for a yes', a: 'One of many modules', b: '48h + 2h sequence' },{ label: 'No-show recovery list', a: 'Buried in reports', b: 'Action list for staff' },{ label: 'After-hours voice', a: 'Enterprise add-on', b: 'Optional +$49/mo, minute-capped' },{ label: 'Founding price', a: 'Often $300+/mo', b: '$99/mo lock, first 30' }]} />
+      <NotThis yes={['1–2 provider dental, physio, skin, eye, or similar','You already have a Google or Outlook calendar','No-shows and after-hours rings are the pain','You want scheduling software, not an EHR']} no={['You need clinical records or e-prescribe','You are a hospital system shopping for PMS','You want AfterYes to give medical advice','You have no calendar and no front desk problem yet']} />
       <section id="features" className="py-16 sm:py-24 border-t border-[#E7E0D6]">
         <div className="max-w-[1120px] mx-auto px-4 sm:px-6">
           <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16"><div className="text-xs uppercase tracking-[0.12em] font-sans font-medium text-[#6B645C] mb-2">FEATURES</div><h2 className="text-2xl sm:text-4xl font-serif text-[#1A1714]">Clean scheduling designed for busy clinics</h2></div>
@@ -90,6 +103,7 @@ export const ClinicsPage: React.FC = () => {
           <div className="max-w-3xl mx-auto text-center text-xs text-[#6B645C]"><p>First 30 clinics keep $99 for 12 months.</p></div>
         </div>
       </section>
+      <MidInvite title="Lock $99 before the first 30 fill." body="No charge today. We’ll email checkout from afteryes.team@gmail.com when onboarding opens." cta="Join the clinic list" onCta={scrollToSignup} />
       <section id="signup-card" className="py-16 sm:py-24 pb-28 sm:pb-24 border-t border-[#E7E0D6]">
         <div className="max-w-xl mx-auto px-4 sm:px-6">
           <div className="bg-[#FFFFFF] rounded-[20px] p-7 sm:p-10 border border-[#E7E0D6]">
