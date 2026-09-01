@@ -38,6 +38,7 @@ export interface WaitlistSubmission {
 
 export type ReminderTiming = '48h-before' | '24h-before' | '2h-before' | 'morning-of';
 export type FollowUpDelay = '24h' | '48h';
+export type CalendarProvider = 'calendly' | 'cal.com' | 'acuity' | 'google' | 'outlook';
 
 export interface OnboardingConfig {
   id: string;
@@ -47,16 +48,25 @@ export interface OnboardingConfig {
     businessName: string;
     timezone: string;
     reviewLink: string;
+    calendarProvider: CalendarProvider;
+    calendarUrl: string;
   };
   delivery: {
     reminderTiming: ReminderTiming;
     followUpDelay: FollowUpDelay;
     messageTemplate: string;
+    emailFirst: boolean;
+    smsMonthlyCap: number;
   };
   channel: {
     senderName: string;
     supportEmail: string;
     twilioPhone: string;
+  };
+  engine: {
+    stage1: '24h_review';
+    stage2: 'day4_checkin';
+    stage3: 'day10_14_rebook';
   };
   activatedAt: string;
 }
@@ -65,6 +75,7 @@ export type PageRoute =
   | '/'
   | '/coaches'
   | '/clinics'
+  | '/app'
   | '/app/coach'
   | '/app/clinic'
   | '/onboarding'

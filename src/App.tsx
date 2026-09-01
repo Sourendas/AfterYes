@@ -72,6 +72,7 @@ const AppContent: React.FC = () => {
         return <CoachesPage />;
       case '/clinics':
         return <ClinicsPage />;
+      case '/app':
       case '/app/coach':
         return <DemoPage kind="coach" />;
       case '/app/clinic':
