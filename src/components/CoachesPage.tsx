@@ -4,6 +4,7 @@ import { CoachWaitlistData } from '../types';
 import { ArrowRight, Check, ChevronDown, FileText, BellRing, Clock, ArrowDown } from 'lucide-react';
 import { AnimatedRadarMock } from './ProductMocks';
 import { CoachServiceStories } from './ServiceStories';
+import { ProofStrip, ProblemBand, WeekTimeline, CompareTable, NotThis, MidInvite } from './LandingExtras';
 
 export const CoachesPage: React.FC = () => {
   const { submitWaitlist, navigate } = useAudience();
@@ -37,25 +38,31 @@ export const CoachesPage: React.FC = () => {
   const scrollToFlow = () => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' });
   const faqs = [
     { q: 'Stay on WhatsApp?', a: 'Yes. Clients can receive session summaries and next check-in nudges directly over WhatsApp or email, without installing another app.' },
-    { q: 'Is this Trainerize?', a: 'No. Retention, not workout plans. AfterYes keeps clients from drifting away after they say yes.' },
+    { q: 'Is this Trainerize or Quenza?', a: 'No. Those tools run programs and workouts. AfterYes is the thin layer after they already said yes — notes, recap, quiet flag.' },
+    { q: 'Do I need to move off my current calendar?', a: 'No. Log the session and the next date. AfterYes is retention, not a full practice OS.' },
     { q: 'Pay now?', a: 'Not yet. Founding list first. We will email checkout invitations to afteryes.team@gmail.com replies before onboarding begins.' },
+    { q: 'Who is the founding rate for?', a: 'The first 50 coaches lock $29/mo for 12 months. No charge today. After the lock window, Starter is still $29 and Pro is $59.' },
   ];
 
   return (
     <div className="w-full text-[#1A1714]">
-      <section className="pt-16 sm:pt-24 pb-16 sm:pb-24 px-4 sm:px-6 max-w-[1120px] mx-auto">
-        <div className="max-w-3xl mx-auto text-center">
-          <div className="text-xs uppercase tracking-[0.12em] font-sans font-medium text-[#6B645C] mb-4">FOR 1:1 ONLINE COACHES</div>
-          <h1 className="text-[1.85rem] sm:text-5xl lg:text-6xl font-serif text-[#1A1714] tracking-tight leading-[1.12] mb-6">Your client didn’t quit. <br className="hidden sm:inline" />They went quiet.</h1>
-          <p className="text-base sm:text-lg text-[#6B645C] leading-relaxed mb-8 max-w-2xl mx-auto">Log a session in a minute. AfterYes sends the follow-up and flags anyone silent for 7 days.</p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5">
-            <button onClick={scrollToSignup} id="hero-coach-primary-cta" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-[22px] py-[14px] rounded-[12px] bg-[#0F766E] text-white text-base font-medium hover:bg-[#0C5F59] transition-colors duration-150 cursor-pointer"><span>Get founding $29/mo</span><ArrowRight className="w-4 h-4" /></button>
-            <button onClick={scrollToFlow} id="hero-coach-secondary-cta" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-[22px] py-[14px] rounded-[12px] bg-[#FAF7F2] hover:bg-[#F3EDE4] border border-[#E7E0D6] text-[#1A1714] text-base font-medium transition-colors duration-150 cursor-pointer"><span>See the flow</span><ArrowDown className="w-4 h-4 text-[#6B645C]" /></button>
+      <section className="pt-14 sm:pt-20 pb-12 sm:pb-16 px-4 sm:px-6 max-w-[1120px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+          <div className="text-center lg:text-left">
+            <div className="text-xs uppercase tracking-[0.12em] font-sans font-medium text-[#6B645C] mb-4">FOR 1:1 ONLINE COACHES</div>
+            <h1 className="text-[1.85rem] sm:text-5xl font-serif text-[#1A1714] tracking-tight leading-[1.12] mb-6">Your client didn’t quit. They went quiet.</h1>
+            <p className="text-base sm:text-lg text-[#6B645C] leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0">Log a session in a minute. AfterYes sends the follow-up and flags anyone silent for 7 days.</p>
+            <div className="flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-3.5">
+              <button onClick={scrollToSignup} id="hero-coach-primary-cta" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-[22px] py-[14px] rounded-[12px] bg-[#0F766E] text-white text-base font-medium hover:bg-[#0C5F59] transition-colors duration-150 cursor-pointer"><span>Get founding $29/mo</span><ArrowRight className="w-4 h-4" /></button>
+              <button onClick={scrollToFlow} id="hero-coach-secondary-cta" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-[22px] py-[14px] rounded-[12px] bg-[#FAF7F2] hover:bg-[#F3EDE4] border border-[#E7E0D6] text-[#1A1714] text-base font-medium transition-colors duration-150 cursor-pointer"><span>See the flow</span><ArrowDown className="w-4 h-4 text-[#6B645C]" /></button>
+            </div>
+            <p className="text-xs text-[#6B645C] mt-4">First 50 coaches lock $29/mo for 12 months. No charge today.</p>
           </div>
-          <p className="text-xs text-[#6B645C] mt-4">First 50 coaches lock $29/mo for 12 months. No charge today.</p>
+          <div><AnimatedRadarMock /></div>
         </div>
-        <div className="mt-12 sm:mt-16 max-w-3xl mx-auto"><AnimatedRadarMock /></div>
       </section>
+      <ProofStrip items={['60-second session log','WhatsApp + email recap','7-day quiet flag','Founding lock $29/mo']} />
+      <ProblemBand eyebrow="The week after they paid" title="Most retainers don’t explode. They fade." lead="The client said yes. You had a strong first call. Then homework slips, replies slow, and by week three you are guessing whether they are still in." columns={[{ title: 'Notes live in Photos', body: 'The commitment from Tuesday is in a screenshot. Next week you reconstruct the session from memory.' },{ title: 'Follow-up is 11pm you', body: 'You mean to send the recap. You don’t. They assume the work stopped when the Zoom ended.' },{ title: 'Quiet looks like fine', body: 'No complaint. No cancel email. Just silence — until the next invoice bounces.' }]} />
       <section id="how-it-works" className="py-16 sm:py-24 border-t border-[#E7E0D6]">
         <div className="max-w-[1120px] mx-auto px-4 sm:px-6">
           <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
@@ -74,6 +81,9 @@ export const CoachesPage: React.FC = () => {
         </div>
       </section>
       <CoachServiceStories />
+      <WeekTimeline eyebrow="A week with AfterYes" title="What actually happens between calls" steps={[{ day: 'Tue 5:08pm', title: 'You log the hour', body: 'Covered protein + sleep. Next check-in Thursday 4pm. Save. Recap queued.' },{ day: 'Tue 5:09pm', title: 'They get the recap', body: 'WhatsApp or email: what you locked, what to do, when you’ll talk.' },{ day: 'Thu 4pm', title: 'The check-in sits there', body: 'If they reply, the roster stays calm. If they don’t, the clock is running.' },{ day: 'Day 7', title: 'Quiet flag', body: 'Sarah surfaces on the radar. One human message while the retainer is still live.' }]} />
+      <CompareTable title="A retention layer, not another coaching OS" lead="Paperbell and Quenza run the whole practice. AfterYes sits after they already said yes." headers={['Job', 'Typical coaching OS', 'AfterYes']} rows={[{ label: 'Workout / program delivery', a: 'Core product', b: 'Not this' },{ label: 'Client website + payments', a: 'Often bundled', b: 'Keep what you have' },{ label: 'Session note + next date', a: 'Buried in a CRM', b: '60-second log' },{ label: 'Follow-up after the call', a: 'You, at 11pm', b: 'Recap on WhatsApp / email' },{ label: 'Quiet-client signal', a: 'You notice late', b: '7-day flag on the roster' },{ label: 'Founding price', a: '$50–$80+/mo typical', b: '$29/mo lock, first 50' }]} />
+      <NotThis yes={['You already have paying 1:1 clients','Follow-up currently lives in your head or camera roll','You want a quiet flag, not a new operating system','Clients already live on WhatsApp or email']} no={['You need a client-facing program / workout app','You sell group courses as the main product','You want a full CRM, contracts, and invoicing suite','You do not have clients yet and need a lead magnet']} />
       <section id="features" className="py-16 sm:py-24 border-t border-[#E7E0D6]">
         <div className="max-w-[1120px] mx-auto px-4 sm:px-6">
           <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
@@ -101,6 +111,7 @@ export const CoachesPage: React.FC = () => {
           <div className="max-w-3xl mx-auto space-y-2 text-center text-xs text-[#6B645C]"><p>First 50 coaches keep $29 for 12 months.</p><p>Phone AI is a clinic add-on. Coaches don’t need it to start.</p></div>
         </div>
       </section>
+      <MidInvite title="Lock $29 before the first 50 fill." body="No charge today. We’ll email checkout from afteryes.team@gmail.com when onboarding opens." cta="Join the coach list" onCta={scrollToSignup} />
       <section id="signup-card" className="py-16 sm:py-24 pb-28 sm:pb-24 border-t border-[#E7E0D6]">
         <div className="max-w-xl mx-auto px-4 sm:px-6">
           <div className="bg-[#FFFFFF] rounded-[20px] p-7 sm:p-10 border border-[#E7E0D6]">
