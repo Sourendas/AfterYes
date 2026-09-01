@@ -1,0 +1,6 @@
+{
+  "name": "AfterYes",
+  "description": "Premium client retention and practice automation platform for 1:1 online coaches and healthcare practices.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
