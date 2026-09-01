@@ -46,95 +46,165 @@ export const ClinicsPage: React.FC = () => {
   ];
 
   return (
-    <div className="w-full text-[#1A1714]">
-      <section className="pt-14 sm:pt-20 pb-12 sm:pb-16 px-4 sm:px-6 max-w-[1120px] mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
-          <div className="text-center lg:text-left">
-            <div className="text-xs uppercase tracking-[0.12em] font-sans font-medium text-[#6B645C] mb-4">FOR HEALTHCARE PRACTICES & CLINICS</div>
-            <h1 className="text-[1.85rem] sm:text-5xl font-serif text-[#1A1714] tracking-tight leading-[1.12] mb-6">After 6pm, empty rings are empty chairs.</h1>
-            <p className="text-base sm:text-lg text-[#6B645C] leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0">Reminders, a no-show list, and an optional receptionist that books the calendar. No clinical advice. Ever.</p>
-            <div className="flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-3.5">
-              <button onClick={scrollToSignup} id="hero-clinic-primary-cta" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-[22px] py-[14px] rounded-[12px] bg-[#0F766E] text-white text-base font-medium hover:bg-[#0C5F59] transition-colors duration-150 cursor-pointer"><span>Get founding $99/mo</span><ArrowRight className="w-4 h-4" /></button>
-              <button onClick={scrollToFlow} id="hero-clinic-secondary-cta" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-[22px] py-[14px] rounded-[12px] bg-[#FAF7F2] hover:bg-[#F3EDE4] border border-[#E7E0D6] text-[#1A1714] text-base font-medium transition-colors duration-150 cursor-pointer"><span>How booking works</span><ArrowDown className="w-4 h-4 text-[#6B645C]" /></button>
+    <div className="w-full text-[#10203A]">
+      <section className="ay-hero">
+        <div className="relative z-10 max-w-[1120px] mx-auto px-4 sm:px-6 pt-16 sm:pt-24 pb-16 sm:pb-24">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+            <div className="text-center lg:text-left">
+              <div className="inline-flex items-center gap-2 mb-5">
+                <span className="text-[11px] font-semibold tracking-wide bg-[#E25A48] text-white px-2.5 py-1 rounded-full">NEW</span>
+                <span className="text-xs uppercase tracking-[0.14em] font-medium text-white/70">For healthcare practices</span>
+              </div>
+              <h1 className="text-[2rem] sm:text-5xl lg:text-[3.25rem] font-sans font-extrabold text-white tracking-tight leading-[1.08] mb-6">After 6pm, empty rings are empty <span className="text-[#E25A48]">chairs.</span></h1>
+              <p className="text-base sm:text-lg text-white/75 leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0">Reminders, a no-show list, and an optional receptionist that books the calendar. No clinical advice. Ever.</p>
+              <div className="flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-3.5">
+                <button onClick={scrollToSignup} id="hero-clinic-primary-cta" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-[14px] rounded-full bg-white text-[#E25A48] text-base font-semibold hover:bg-[#F3F6F8] transition-colors duration-150 cursor-pointer"><span>Get founding $99/mo</span><ArrowRight className="w-4 h-4" /></button>
+                <button onClick={scrollToFlow} id="hero-clinic-secondary-cta" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-[14px] rounded-full bg-transparent hover:bg-white/10 border border-white/40 text-white text-base font-medium transition-colors duration-150 cursor-pointer"><span>How booking works</span><ArrowDown className="w-4 h-4 text-white/70" /></button>
+              </div>
+              <p className="text-xs text-white/55 mt-4">First 30 clinics keep $99 for 12 months. No charge today.</p>
+              <div className="mt-6 bg-white/8 border border-white/15 rounded-2xl px-4 py-3 text-xs text-white/80 font-medium flex items-start sm:items-center gap-2">
+                <ShieldAlert className="w-4 h-4 text-[#E25A48] shrink-0 mt-0.5 sm:mt-0" />
+                <span>Scheduling software only. Not a medical device. We don’t diagnose, treat, or advise.</span>
+              </div>
             </div>
-            <p className="text-xs text-[#6B645C] mt-4">First 30 clinics keep $99 for 12 months. No charge today.</p>
-            <div className="mt-6 bg-[#F3EDE4] border border-[#E7E0D6] rounded-[14px] px-4 py-3 text-xs text-[#1A1714] font-medium flex items-start sm:items-center gap-2">
-              <ShieldAlert className="w-4 h-4 text-[#0F766E] shrink-0 mt-0.5 sm:mt-0" />
-              <span>Scheduling software only. Not a medical device. We don’t diagnose, treat, or advise.</span>
-            </div>
+            <div><AnimatedClinicMock /></div>
           </div>
-          <div><AnimatedClinicMock /></div>
         </div>
       </section>
-      <ProofStrip items={['Calendar-first reminders','No-show recovery list','Optional after-hours voice','Founding lock $99/mo']} />
-      <ProblemBand eyebrow="Empty chairs are booked money" title="Most no-shows are decided the night before." lead="The slot was on the calendar. Nobody confirmed. At 10:28 the chair is empty and the waitlist was never offered the hour." columns={[{ title: 'One reminder, too late', body: 'A single text the morning of does not give anyone time to move. The chair dies quietly.' },{ title: 'Front desk leaves at 6', body: 'The new-patient call at 7:14 rings out. Tomorrow’s 10:30 stays empty.' },{ title: 'No-shows have no owner', body: 'Staff hear about it when the next patient is already waiting. The waitlist never gets the slot.' }]} />
-      <section id="how-it-works" className="py-16 sm:py-24 border-t border-[#E7E0D6]">
+
+      <ProofStrip items={[
+        'Calendar-first reminders',
+        'No-show recovery list',
+        'Optional after-hours voice',
+        'Founding lock $99/mo',
+      ]} />
+
+      <ProblemBand
+        eyebrow="Empty chairs are booked money"
+        title="Most no-shows are decided the night before."
+        lead="The slot was on the calendar. Nobody confirmed. At 10:28 the chair is empty and the waitlist was never offered the hour."
+        columns={[
+          { title: 'One reminder, too late', body: 'A single text the morning of does not give anyone time to move. The chair dies quietly.' },
+          { title: 'Front desk leaves at 6', body: 'The new-patient call at 7:14 rings out. Tomorrow’s 10:30 stays empty.' },
+          { title: 'No-shows have no owner', body: 'Staff hear about it when the next patient is already waiting. The waitlist never gets the slot.' },
+        ]}
+      />
+
+      <section id="how-it-works" className="py-16 sm:py-24 border-t border-[#D9E2EA]">
         <div className="max-w-[1120px] mx-auto px-4 sm:px-6">
-          <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16"><div className="text-xs uppercase tracking-[0.12em] font-sans font-medium text-[#6B645C] mb-2">HOW BOOKING WORKS</div><h2 className="text-2xl sm:text-4xl font-serif text-[#1A1714]">Three steps to keep clinic chairs filled</h2></div>
+          <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16"><div className="text-xs uppercase tracking-[0.12em] font-sans font-medium text-[#5C6B80] mb-2">HOW BOOKING WORKS</div><h2 className="text-2xl sm:text-4xl font-serif text-[#10203A]">Three steps to keep clinic chairs filled</h2></div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
             {[['1','Connect the calendar','Connect your existing Google or Outlook calendar in 2 minutes. Sync appointment slots instantly.'],['2','Reminders go out on their own','Reminders go out on their own — SMS and WhatsApp confirmations sent 48 hours and 2 hours prior.'],['3','Optional: the phone gets answered','Optional: the phone gets answered and a slot is booked even after your front desk leaves at 6pm.']].map(([n,t,b]) => (
-              <div key={n} className="bg-[#FFFFFF] p-7 rounded-[20px] border border-[#E7E0D6] hover:border-[#0F766E] transition-all duration-200 hover:-translate-y-1"><div className="w-10 h-10 rounded-[12px] bg-[#E6F4F1] text-[#0F766E] font-serif font-bold text-lg flex items-center justify-center mb-6">{n}</div><h3 className="text-lg font-serif text-[#1A1714] mb-2">{t}</h3><p className="text-base text-[#6B645C] leading-relaxed">{b}</p></div>
+              <div key={n} className="bg-[#FFFFFF] p-7 rounded-[20px] border border-[#D9E2EA] hover:border-[#E25A48] transition-all duration-200 hover:-translate-y-1"><div className="w-10 h-10 rounded-full bg-[#E8F4F4] text-[#E25A48] font-serif font-bold text-lg flex items-center justify-center mb-6">{n}</div><h3 className="text-lg font-serif text-[#10203A] mb-2">{t}</h3><p className="text-base text-[#5C6B80] leading-relaxed">{b}</p></div>
             ))}
           </div>
         </div>
       </section>
+
       <ClinicServiceStories />
-      <WeekTimeline eyebrow="A week in a 1–2 provider clinic" title="How a chair gets protected" steps={[{ day: 'Mon', title: 'Calendar syncs', body: 'Thursday 10:30 is on the book. Reminder sequence is armed automatically.' },{ day: 'Tue', title: '48-hour confirm', body: 'Patient gets SMS + email. Confirm or reschedule. Silence marks the slot at risk.' },{ day: 'Thu 8am', title: '2-hour nudge', body: 'Short reminder. If they drop, the slot hits the recovery list immediately.' },{ day: 'Thu 7pm', title: 'Optional voice', body: 'A new-patient call books Friday. No clinical advice. Just a slot on the calendar.' }]} />
-      <CompareTable title="Not a hospital platform. A chair-protection layer." lead="NexHealth and Weave run the whole front office. AfterYes is reminders, recovery, and optional after-hours booking." headers={['Job', 'Full practice platform', 'AfterYes']} rows={[{ label: 'EHR / clinical records', a: 'Often bundled', b: 'Never — scheduling only' },{ label: 'Insurance / payments', a: 'Core product', b: 'Not this' },{ label: 'Reminders that ask for a yes', a: 'One of many modules', b: '48h + 2h sequence' },{ label: 'No-show recovery list', a: 'Buried in reports', b: 'Action list for staff' },{ label: 'After-hours voice', a: 'Enterprise add-on', b: 'Optional +$49/mo, minute-capped' },{ label: 'Founding price', a: 'Often $300+/mo', b: '$99/mo lock, first 30' }]} />
-      <NotThis yes={['1–2 provider dental, physio, skin, eye, or similar','You already have a Google or Outlook calendar','No-shows and after-hours rings are the pain','You want scheduling software, not an EHR']} no={['You need clinical records or e-prescribe','You are a hospital system shopping for PMS','You want AfterYes to give medical advice','You have no calendar and no front desk problem yet']} />
-      <section id="features" className="py-16 sm:py-24 border-t border-[#E7E0D6]">
+
+      <WeekTimeline
+        eyebrow="A week in a 1–2 provider clinic"
+        title="How a chair gets protected"
+        steps={[
+          { day: 'Mon', title: 'Calendar syncs', body: 'Thursday 10:30 is on the book. Reminder sequence is armed automatically.' },
+          { day: 'Tue', title: '48-hour confirm', body: 'Patient gets SMS + email. Confirm or reschedule. Silence marks the slot at risk.' },
+          { day: 'Thu 8am', title: '2-hour nudge', body: 'Short reminder. If they drop, the slot hits the recovery list immediately.' },
+          { day: 'Thu 7pm', title: 'Optional voice', body: 'A new-patient call books Friday. No clinical advice. Just a slot on the calendar.' },
+        ]}
+      />
+
+      <CompareTable
+        title="Not a hospital platform. A chair-protection layer."
+        lead="NexHealth and Weave run the whole front office. AfterYes is reminders, recovery, and optional after-hours booking."
+        headers={['Job', 'Full practice platform', 'AfterYes']}
+        rows={[
+          { label: 'EHR / clinical records', a: 'Often bundled', b: 'Never — scheduling only' },
+          { label: 'Insurance / payments', a: 'Core product', b: 'Not this' },
+          { label: 'Reminders that ask for a yes', a: 'One of many modules', b: '48h + 2h sequence' },
+          { label: 'No-show recovery list', a: 'Buried in reports', b: 'Action list for staff' },
+          { label: 'After-hours voice', a: 'Enterprise add-on', b: 'Optional +$49/mo, minute-capped' },
+          { label: 'Founding price', a: 'Often $300+/mo', b: '$99/mo lock, first 30' },
+        ]}
+      />
+
+      <NotThis
+        yes={[
+          '1–2 provider dental, physio, skin, eye, or similar',
+          'You already have a Google or Outlook calendar',
+          'No-shows and after-hours rings are the pain',
+          'You want scheduling software, not an EHR',
+        ]}
+        no={[
+          'You need clinical records or e-prescribe',
+          'You are a hospital system shopping for PMS',
+          'You want AfterYes to give medical advice',
+          'You have no calendar and no front desk problem yet',
+        ]}
+      />
+
+      <section id="features" className="py-16 sm:py-24 border-t border-[#D9E2EA]">
         <div className="max-w-[1120px] mx-auto px-4 sm:px-6">
-          <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16"><div className="text-xs uppercase tracking-[0.12em] font-sans font-medium text-[#6B645C] mb-2">FEATURES</div><h2 className="text-2xl sm:text-4xl font-serif text-[#1A1714]">Clean scheduling designed for busy clinics</h2></div>
+          <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16"><div className="text-xs uppercase tracking-[0.12em] font-sans font-medium text-[#5C6B80] mb-2">FEATURES</div><h2 className="text-2xl sm:text-4xl font-serif text-[#10203A]">Clean scheduling designed for busy clinics</h2></div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-            <div className="bg-[#FFFFFF] p-7 rounded-[20px] border border-[#E7E0D6] hover:border-[#0F766E] transition-all duration-200 hover:-translate-y-1"><div className="w-12 h-12 rounded-[14px] bg-[#E6F4F1] text-[#0F766E] flex items-center justify-center mb-6"><Clock className="w-6 h-6" /></div><h3 className="text-lg font-serif text-[#1A1714] mb-2">Reminders before the chair goes empty</h3><p className="text-base text-[#6B645C] leading-relaxed">Automated multi-channel confirmations that prompt patients to confirm or reschedule before the slot is wasted.</p></div>
-            <div className="bg-[#FFFFFF] p-7 rounded-[20px] border border-[#E7E0D6] hover:border-[#0F766E] transition-all duration-200 hover:-translate-y-1"><div className="w-12 h-12 rounded-[14px] bg-[#E6F4F1] text-[#0F766E] flex items-center justify-center mb-6"><Calendar className="w-6 h-6" /></div><h3 className="text-lg font-serif text-[#1A1714] mb-2">A no-show list you can actually act on</h3><p className="text-base text-[#6B645C] leading-relaxed">Instant alerts for staff when a patient cancels late, allowing immediate backfill from your waitlisted patients.</p></div>
-            <div className="bg-[#FFFFFF] p-7 rounded-[20px] border border-[#E7E0D6] hover:border-[#0F766E] transition-all duration-200 hover:-translate-y-1"><div className="w-12 h-12 rounded-[14px] bg-[#E6F4F1] text-[#0F766E] flex items-center justify-center mb-6"><PhoneCall className="w-6 h-6" /></div><h3 className="text-lg font-serif text-[#1A1714] mb-2">After-hours booking, minute-capped if you add voice</h3><p className="text-base text-[#6B645C] leading-relaxed">Optional evening receptionist add-on that answers phone calls and books open slots with strict minute caps.</p></div>
+            <div className="bg-[#FFFFFF] p-7 rounded-[20px] border border-[#D9E2EA] hover:border-[#E25A48] transition-all duration-200 hover:-translate-y-1"><div className="w-12 h-12 rounded-[14px] bg-[#E8F4F4] text-[#E25A48] flex items-center justify-center mb-6"><Clock className="w-6 h-6" /></div><h3 className="text-lg font-serif text-[#10203A] mb-2">Reminders before the chair goes empty</h3><p className="text-base text-[#5C6B80] leading-relaxed">Automated multi-channel confirmations that prompt patients to confirm or reschedule before the slot is wasted.</p></div>
+            <div className="bg-[#FFFFFF] p-7 rounded-[20px] border border-[#D9E2EA] hover:border-[#E25A48] transition-all duration-200 hover:-translate-y-1"><div className="w-12 h-12 rounded-[14px] bg-[#E8F4F4] text-[#E25A48] flex items-center justify-center mb-6"><Calendar className="w-6 h-6" /></div><h3 className="text-lg font-serif text-[#10203A] mb-2">A no-show list you can actually act on</h3><p className="text-base text-[#5C6B80] leading-relaxed">Instant alerts for staff when a patient cancels late, allowing immediate backfill from your waitlisted patients.</p></div>
+            <div className="bg-[#FFFFFF] p-7 rounded-[20px] border border-[#D9E2EA] hover:border-[#E25A48] transition-all duration-200 hover:-translate-y-1"><div className="w-12 h-12 rounded-[14px] bg-[#E8F4F4] text-[#E25A48] flex items-center justify-center mb-6"><PhoneCall className="w-6 h-6" /></div><h3 className="text-lg font-serif text-[#10203A] mb-2">After-hours booking, minute-capped if you add voice</h3><p className="text-base text-[#5C6B80] leading-relaxed">Optional evening receptionist add-on that answers phone calls and books open slots with strict minute caps.</p></div>
           </div>
         </div>
       </section>
-      <section id="pricing" className="py-16 sm:py-24 border-t border-[#E7E0D6]">
+
+      <section id="pricing" className="py-16 sm:py-24 border-t border-[#D9E2EA]">
         <div className="max-w-[1120px] mx-auto px-4 sm:px-6">
-          <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16"><div className="text-xs uppercase tracking-[0.12em] font-sans font-medium text-[#6B645C] mb-2">PRICING</div><h2 className="text-2xl sm:text-4xl font-serif text-[#1A1714]">Clear pricing for small clinics & practices</h2><p className="text-sm sm:text-base text-[#6B645C] mt-2">First 30 clinics keep $99 for 12 months.</p></div>
+          <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16"><div className="text-xs uppercase tracking-[0.12em] font-sans font-medium text-[#5C6B80] mb-2">PRICING</div><h2 className="text-2xl sm:text-4xl font-serif text-[#10203A]">Clear pricing for small clinics & practices</h2><p className="text-sm sm:text-base text-[#5C6B80] mt-2">First 30 clinics keep $99 for 12 months.</p></div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-3xl mx-auto mb-8 items-stretch">
-            <div className="bg-[#FFFFFF] rounded-[20px] p-7 sm:p-8 border-2 border-[#0F766E] flex flex-col justify-between"><div><div className="flex items-center justify-between mb-4"><span className="text-xs uppercase tracking-[0.12em] font-sans font-medium text-[#0F766E]">Founding Lock</span><span className="text-xs bg-[#E6F4F1] text-[#0F766E] font-medium px-2.5 py-0.5 rounded-full">30 spots</span></div><h3 className="text-2xl font-serif text-[#1A1714] mb-2">Practice</h3><div className="flex items-baseline gap-1 mb-6"><span className="text-4xl font-serif text-[#1A1714]">$99</span><span className="text-sm font-sans text-[#6B645C]">/mo</span></div><ul className="space-y-3 text-sm text-[#1A1714] mb-8">{['1 provider calendar sync','Automated SMS & email reminders','Actionable no-show list','Online rescheduling portal'].map((item) => (<li key={item} className="flex items-center gap-2.5"><Check className="w-4 h-4 text-[#0F766E] shrink-0" /><span>{item}</span></li>))}</ul></div><button onClick={scrollToSignup} className="w-full inline-flex items-center justify-center gap-2 px-[22px] py-[14px] rounded-[12px] bg-[#0F766E] text-white text-base font-medium hover:bg-[#0C5F59] transition-colors duration-150 cursor-pointer"><span>Get founding $99/mo</span><ArrowRight className="w-4 h-4" /></button></div>
-            <div className="bg-[#FFFFFF] rounded-[20px] p-7 sm:p-8 border border-[#E7E0D6] hover:border-[#0F766E] flex flex-col justify-between"><div><div className="flex items-center justify-between mb-4"><span className="text-xs uppercase tracking-[0.12em] font-sans font-medium text-[#6B645C]">Multi-Provider</span></div><h3 className="text-2xl font-serif text-[#1A1714] mb-2">Practice+</h3><div className="flex items-baseline gap-1 mb-6"><span className="text-4xl font-serif text-[#1A1714]">$149</span><span className="text-sm font-sans text-[#6B645C]">/mo</span></div><ul className="space-y-3 text-sm text-[#1A1714] mb-8">{['2 provider calendars','Priority SMS dispatch','Detailed call log & analytics','Multi-staff dashboard'].map((item) => (<li key={item} className="flex items-center gap-2.5"><Check className="w-4 h-4 text-[#0F766E] shrink-0" /><span>{item}</span></li>))}</ul></div><button onClick={scrollToSignup} className="w-full inline-flex items-center justify-center gap-2 px-[22px] py-[14px] rounded-[12px] bg-[#FAF7F2] hover:bg-[#F3EDE4] border border-[#E7E0D6] text-[#1A1714] text-base font-medium transition-colors duration-150 cursor-pointer"><span>Join waitlist for Practice+</span><ArrowRight className="w-4 h-4 text-[#6B645C]" /></button></div>
+            <div className="bg-[#FFFFFF] rounded-[20px] p-7 sm:p-8 border-2 border-[#E25A48] flex flex-col justify-between"><div><div className="flex items-center justify-between mb-4"><span className="text-xs uppercase tracking-[0.12em] font-sans font-medium text-[#E25A48]">Founding Lock</span><span className="text-xs bg-[#E8F4F4] text-[#E25A48] font-medium px-2.5 py-0.5 rounded-full">30 spots</span></div><h3 className="text-2xl font-serif text-[#10203A] mb-2">Practice</h3><div className="flex items-baseline gap-1 mb-6"><span className="text-4xl font-serif text-[#10203A]">$99</span><span className="text-sm font-sans text-[#5C6B80]">/mo</span></div><ul className="space-y-3 text-sm text-[#10203A] mb-8">{['1 provider calendar sync','Automated SMS & email reminders','Actionable no-show list','Online rescheduling portal'].map((item) => (<li key={item} className="flex items-center gap-2.5"><Check className="w-4 h-4 text-[#E25A48] shrink-0" /><span>{item}</span></li>))}</ul></div><button onClick={scrollToSignup} className="w-full inline-flex items-center justify-center gap-2 px-[22px] py-[14px] rounded-full bg-[#E25A48] text-white text-base font-medium hover:bg-[#C94B3B] transition-colors duration-150 cursor-pointer"><span>Get founding $99/mo</span><ArrowRight className="w-4 h-4" /></button></div>
+            <div className="bg-[#FFFFFF] rounded-[20px] p-7 sm:p-8 border border-[#D9E2EA] hover:border-[#E25A48] flex flex-col justify-between"><div><div className="flex items-center justify-between mb-4"><span className="text-xs uppercase tracking-[0.12em] font-sans font-medium text-[#5C6B80]">Multi-Provider</span></div><h3 className="text-2xl font-serif text-[#10203A] mb-2">Practice+</h3><div className="flex items-baseline gap-1 mb-6"><span className="text-4xl font-serif text-[#10203A]">$149</span><span className="text-sm font-sans text-[#5C6B80]">/mo</span></div><ul className="space-y-3 text-sm text-[#10203A] mb-8">{['2 provider calendars','Priority SMS dispatch','Detailed call log & analytics','Multi-staff dashboard'].map((item) => (<li key={item} className="flex items-center gap-2.5"><Check className="w-4 h-4 text-[#E25A48] shrink-0" /><span>{item}</span></li>))}</ul></div><button onClick={scrollToSignup} className="w-full inline-flex items-center justify-center gap-2 px-[22px] py-[14px] rounded-full bg-[#FFFFFF] hover:bg-[#F3F6F8] border border-[#D9E2EA] text-[#10203A] text-base font-medium transition-colors duration-150 cursor-pointer"><span>Join waitlist for Practice+</span><ArrowRight className="w-4 h-4 text-[#5C6B80]" /></button></div>
           </div>
-          <div className="max-w-3xl mx-auto bg-[#FFFFFF] p-6 rounded-[20px] border border-[#E7E0D6] mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"><div className="flex items-start gap-3"><div className="w-10 h-10 rounded-[12px] bg-[#E6F4F1] text-[#0F766E] flex items-center justify-center shrink-0"><PhoneCall className="w-5 h-5" /></div><div><h4 className="text-base font-serif text-[#1A1714]">Optional Voice Receptionist Add-on</h4><p className="text-xs text-[#6B645C]">+$49/mo — 100 after-hours receptionist minutes included, then $0.25/min.</p></div></div><span className="text-xs font-semibold text-[#0F766E] bg-[#E6F4F1] px-3 py-1.5 rounded-[10px] shrink-0">Voice Add-on +$49/mo</span></div>
-          <div className="max-w-3xl mx-auto text-center text-xs text-[#6B645C]"><p>First 30 clinics keep $99 for 12 months.</p></div>
+          <div className="max-w-3xl mx-auto bg-[#FFFFFF] p-6 rounded-[20px] border border-[#D9E2EA] mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"><div className="flex items-start gap-3"><div className="w-10 h-10 rounded-full bg-[#E8F4F4] text-[#E25A48] flex items-center justify-center shrink-0"><PhoneCall className="w-5 h-5" /></div><div><h4 className="text-base font-serif text-[#10203A]">Optional Voice Receptionist Add-on</h4><p className="text-xs text-[#5C6B80]">+$49/mo — 100 after-hours receptionist minutes included, then $0.25/min.</p></div></div><span className="text-xs font-semibold text-[#E25A48] bg-[#E8F4F4] px-3 py-1.5 rounded-[10px] shrink-0">Voice Add-on +$49/mo</span></div>
+          <div className="max-w-3xl mx-auto text-center text-xs text-[#5C6B80]"><p>First 30 clinics keep $99 for 12 months.</p></div>
         </div>
       </section>
-      <MidInvite title="Lock $99 before the first 30 fill." body="No charge today. We’ll email checkout from afteryes.team@gmail.com when onboarding opens." cta="Join the clinic list" onCta={scrollToSignup} />
-      <section id="signup-card" className="py-16 sm:py-24 pb-28 sm:pb-24 border-t border-[#E7E0D6]">
+
+      <MidInvite
+        title="Lock $99 before the first 30 fill."
+        body="No charge today. We’ll email checkout from afteryes.team@gmail.com when onboarding opens."
+        cta="Join the clinic list"
+        onCta={scrollToSignup}
+      />
+
+      <section id="signup-card" className="py-16 sm:py-24 pb-28 sm:pb-24 border-t border-[#D9E2EA]">
         <div className="max-w-xl mx-auto px-4 sm:px-6">
-          <div className="bg-[#FFFFFF] rounded-[20px] p-7 sm:p-10 border border-[#E7E0D6]">
-            <div className="text-center mb-8"><div className="text-xs uppercase tracking-[0.12em] font-sans font-medium text-[#6B645C] mb-2">FOUNDING INVITATION</div><h2 className="text-2xl sm:text-3xl font-serif text-[#1A1714]">Get the founding rate</h2><p className="text-sm text-[#6B645C] mt-2">Lock $99/mo practice rate before public rollout.</p></div>
-            {formError && <div className="mb-6 p-3.5 rounded-[12px] bg-[#F3EDE4] border border-[#E7E0D6] text-xs text-[#1A1714]">{formError}</div>}
+          <div className="bg-[#FFFFFF] rounded-[20px] p-7 sm:p-10 border border-[#D9E2EA]">
+            <div className="text-center mb-8"><div className="text-xs uppercase tracking-[0.12em] font-sans font-medium text-[#5C6B80] mb-2">FOUNDING INVITATION</div><h2 className="text-2xl sm:text-3xl font-serif text-[#10203A]">Get the founding rate</h2><p className="text-sm text-[#5C6B80] mt-2">Lock $99/mo practice rate before public rollout.</p></div>
+            {formError && <div className="mb-6 p-3.5 rounded-full bg-[#F3F6F8] border border-[#D9E2EA] text-xs text-[#10203A]">{formError}</div>}
             <form onSubmit={handleSubmit} className="space-y-4 text-left">
-              <div><label className="block text-xs uppercase tracking-[0.12em] font-sans font-medium text-[#6B645C] mb-1.5" htmlFor="clinic-lead-name">Your Full Name</label><input type="text" id="clinic-lead-name" required placeholder="Dr. Jordan Hayes" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className="w-full min-h-11 px-4 py-3 rounded-[12px] border border-[#E7E0D6] bg-[#FAF7F2] text-sm text-[#1A1714] focus:bg-[#FFFFFF] focus:outline-hidden focus:border-[#0F766E]" /></div>
-              <div><label className="block text-xs uppercase tracking-[0.12em] font-sans font-medium text-[#6B645C] mb-1.5" htmlFor="clinic-name">Clinic / Practice Name</label><input type="text" id="clinic-name" required placeholder="Beacon Hills Dental Care" value={formData.clinicName} onChange={(e) => setFormData({ ...formData, clinicName: e.target.value })} className="w-full min-h-11 px-4 py-3 rounded-[12px] border border-[#E7E0D6] bg-[#FAF7F2] text-sm text-[#1A1714] focus:bg-[#FFFFFF] focus:outline-hidden focus:border-[#0F766E]" /></div>
-              <div><label className="block text-xs uppercase tracking-[0.12em] font-sans font-medium text-[#6B645C] mb-1.5" htmlFor="clinic-email">Clinic Email</label><input type="email" id="clinic-email" required placeholder="appointments@beaconhillsdental.com" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} className="w-full min-h-11 px-4 py-3 rounded-[12px] border border-[#E7E0D6] bg-[#FAF7F2] text-sm text-[#1A1714] focus:bg-[#FFFFFF] focus:outline-hidden focus:border-[#0F766E]" /></div>
+              <div><label className="block text-xs uppercase tracking-[0.12em] font-sans font-medium text-[#5C6B80] mb-1.5" htmlFor="clinic-lead-name">Your Full Name</label><input type="text" id="clinic-lead-name" required placeholder="Dr. Jordan Hayes" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className="w-full min-h-11 px-4 py-3 rounded-full border border-[#D9E2EA] bg-[#FFFFFF] text-sm text-[#10203A] focus:bg-[#FFFFFF] focus:outline-hidden focus:border-[#E25A48]" /></div>
+              <div><label className="block text-xs uppercase tracking-[0.12em] font-sans font-medium text-[#5C6B80] mb-1.5" htmlFor="clinic-name">Clinic / Practice Name</label><input type="text" id="clinic-name" required placeholder="Beacon Hills Dental Care" value={formData.clinicName} onChange={(e) => setFormData({ ...formData, clinicName: e.target.value })} className="w-full min-h-11 px-4 py-3 rounded-full border border-[#D9E2EA] bg-[#FFFFFF] text-sm text-[#10203A] focus:bg-[#FFFFFF] focus:outline-hidden focus:border-[#E25A48]" /></div>
+              <div><label className="block text-xs uppercase tracking-[0.12em] font-sans font-medium text-[#5C6B80] mb-1.5" htmlFor="clinic-email">Clinic Email</label><input type="email" id="clinic-email" required placeholder="appointments@beaconhillsdental.com" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} className="w-full min-h-11 px-4 py-3 rounded-full border border-[#D9E2EA] bg-[#FFFFFF] text-sm text-[#10203A] focus:bg-[#FFFFFF] focus:outline-hidden focus:border-[#E25A48]" /></div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div><label className="block text-xs uppercase tracking-[0.12em] font-sans font-medium text-[#6B645C] mb-1.5" htmlFor="clinic-country">Country</label><input type="text" id="clinic-country" required placeholder="United States, India, UK..." value={formData.country} onChange={(e) => setFormData({ ...formData, country: e.target.value })} className="w-full min-h-11 px-4 py-3 rounded-[12px] border border-[#E7E0D6] bg-[#FAF7F2] text-sm text-[#1A1714] focus:bg-[#FFFFFF] focus:outline-hidden focus:border-[#0F766E]" /></div>
-                <div><label className="block text-xs uppercase tracking-[0.12em] font-sans font-medium text-[#6B645C] mb-1.5" htmlFor="clinic-specialty">Specialty</label><select id="clinic-specialty" value={formData.specialty} onChange={(e) => setFormData({ ...formData, specialty: e.target.value as any })} className="w-full min-h-11 px-4 py-3 rounded-[12px] border border-[#E7E0D6] bg-[#FAF7F2] text-sm text-[#1A1714] focus:bg-[#FFFFFF] focus:outline-hidden focus:border-[#0F766E]"><option value="Dental">Dental</option><option value="Physio">Physio</option><option value="Skin">Skin</option><option value="Eye">Eye</option><option value="Diagnostics">Diagnostics</option><option value="Other">Other</option></select></div>
+                <div><label className="block text-xs uppercase tracking-[0.12em] font-sans font-medium text-[#5C6B80] mb-1.5" htmlFor="clinic-country">Country</label><input type="text" id="clinic-country" required placeholder="United States, India, UK..." value={formData.country} onChange={(e) => setFormData({ ...formData, country: e.target.value })} className="w-full min-h-11 px-4 py-3 rounded-full border border-[#D9E2EA] bg-[#FFFFFF] text-sm text-[#10203A] focus:bg-[#FFFFFF] focus:outline-hidden focus:border-[#E25A48]" /></div>
+                <div><label className="block text-xs uppercase tracking-[0.12em] font-sans font-medium text-[#5C6B80] mb-1.5" htmlFor="clinic-specialty">Specialty</label><select id="clinic-specialty" value={formData.specialty} onChange={(e) => setFormData({ ...formData, specialty: e.target.value as any })} className="w-full min-h-11 px-4 py-3 rounded-full border border-[#D9E2EA] bg-[#FFFFFF] text-sm text-[#10203A] focus:bg-[#FFFFFF] focus:outline-hidden focus:border-[#E25A48]"><option value="Dental">Dental</option><option value="Physio">Physio</option><option value="Skin">Skin</option><option value="Eye">Eye</option><option value="Diagnostics">Diagnostics</option><option value="Other">Other</option></select></div>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div><label className="block text-xs uppercase tracking-[0.12em] font-sans font-medium text-[#6B645C] mb-1.5" htmlFor="clinic-appointments">Appointments per Week</label><input type="text" id="clinic-appointments" placeholder="e.g. 40" value={formData.weeklyAppointments} onChange={(e) => setFormData({ ...formData, weeklyAppointments: e.target.value })} className="w-full min-h-11 px-4 py-3 rounded-[12px] border border-[#E7E0D6] bg-[#FAF7F2] text-sm text-[#1A1714] focus:bg-[#FFFFFF] focus:outline-hidden focus:border-[#0F766E]" /></div>
-                <div><label className="block text-xs uppercase tracking-[0.12em] font-sans font-medium text-[#6B645C] mb-1.5" htmlFor="clinic-phone">Phone (Optional)</label><input type="tel" id="clinic-phone" placeholder="+1 (555) 345-6789" value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} className="w-full min-h-11 px-4 py-3 rounded-[12px] border border-[#E7E0D6] bg-[#FAF7F2] text-sm text-[#1A1714] focus:bg-[#FFFFFF] focus:outline-hidden focus:border-[#0F766E]" /></div>
+                <div><label className="block text-xs uppercase tracking-[0.12em] font-sans font-medium text-[#5C6B80] mb-1.5" htmlFor="clinic-appointments">Appointments per Week</label><input type="text" id="clinic-appointments" placeholder="e.g. 40" value={formData.weeklyAppointments} onChange={(e) => setFormData({ ...formData, weeklyAppointments: e.target.value })} className="w-full min-h-11 px-4 py-3 rounded-full border border-[#D9E2EA] bg-[#FFFFFF] text-sm text-[#10203A] focus:bg-[#FFFFFF] focus:outline-hidden focus:border-[#E25A48]" /></div>
+                <div><label className="block text-xs uppercase tracking-[0.12em] font-sans font-medium text-[#5C6B80] mb-1.5" htmlFor="clinic-phone">Phone (Optional)</label><input type="tel" id="clinic-phone" placeholder="+1 (555) 345-6789" value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} className="w-full min-h-11 px-4 py-3 rounded-full border border-[#D9E2EA] bg-[#FFFFFF] text-sm text-[#10203A] focus:bg-[#FFFFFF] focus:outline-hidden focus:border-[#E25A48]" /></div>
               </div>
-              <div className="pt-2"><label className="flex items-start gap-2.5 text-xs text-[#6B645C] cursor-pointer"><input type="checkbox" checked={formData.agreedToTerms} onChange={(e) => setFormData({ ...formData, agreedToTerms: e.target.checked })} className="mt-0.5 rounded border-[#E7E0D6] text-[#0F766E] focus:ring-[#0F766E]" /><span>I agree to the <button type="button" onClick={() => navigate('/terms')} className="text-[#0F766E] underline hover:text-[#0C5F59]">Terms of Service</button> and acknowledge that AfterYes is scheduling software and not a medical device.</span></label></div>
-              <button type="submit" id="btn-submit-clinic-waitlist" disabled={isSubmitting} className="w-full mt-4 min-h-11 inline-flex items-center justify-center gap-2 px-[22px] py-[14px] rounded-[12px] bg-[#0F766E] text-white text-base font-medium hover:bg-[#0C5F59] transition-colors duration-150 cursor-pointer disabled:opacity-70">{isSubmitting ? <span>Reserving clinic spot...</span> : <><span>Join the clinic list</span><ArrowRight className="w-4 h-4" /></>}</button>
-              <p className="text-xs text-[#6B645C] text-center pt-2">We’ll email checkout to afteryes.team@gmail.com replies. No charge today.</p>
+              <div className="pt-2"><label className="flex items-start gap-2.5 text-xs text-[#5C6B80] cursor-pointer"><input type="checkbox" checked={formData.agreedToTerms} onChange={(e) => setFormData({ ...formData, agreedToTerms: e.target.checked })} className="mt-0.5 rounded border-[#D9E2EA] text-[#E25A48] focus:ring-[#E25A48]" /><span>I agree to the <button type="button" onClick={() => navigate('/terms')} className="text-[#E25A48] underline hover:text-[#C94B3B]">Terms of Service</button> and acknowledge that AfterYes is scheduling software and not a medical device.</span></label></div>
+              <button type="submit" id="btn-submit-clinic-waitlist" disabled={isSubmitting} className="w-full mt-4 min-h-11 inline-flex items-center justify-center gap-2 px-[22px] py-[14px] rounded-full bg-[#E25A48] text-white text-base font-medium hover:bg-[#C94B3B] transition-colors duration-150 cursor-pointer disabled:opacity-70">{isSubmitting ? <span>Reserving clinic spot...</span> : <><span>Join the clinic list</span><ArrowRight className="w-4 h-4" /></>}</button>
+              <p className="text-xs text-[#5C6B80] text-center pt-2">We’ll email checkout to afteryes.team@gmail.com replies. No charge today.</p>
             </form>
           </div>
         </div>
       </section>
-      <section id="faq" className="py-16 sm:py-24 pb-28 sm:pb-24 border-t border-[#E7E0D6]">
+
+      <section id="faq" className="py-16 sm:py-24 pb-28 sm:pb-24 border-t border-[#D9E2EA]">
         <div className="max-w-2xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-12 sm:mb-16"><div className="text-xs uppercase tracking-[0.12em] font-sans font-medium text-[#6B645C] mb-2">QUESTIONS & ANSWERS</div><h2 className="text-2xl sm:text-4xl font-serif text-[#1A1714]">Frequently asked questions</h2></div>
-          <div className="space-y-4">{faqs.map((faq, idx) => { const isOpen = openFaqIndex === idx; return (<div key={faq.q} className="bg-[#FFFFFF] rounded-[16px] border border-[#E7E0D6] overflow-hidden"><button onClick={() => setOpenFaqIndex(isOpen ? null : idx)} className="w-full min-h-11 px-6 py-4.5 text-left flex items-center justify-between text-base font-serif text-[#1A1714] hover:bg-[#FAF7F2] transition-colors cursor-pointer"><span>{faq.q}</span><ChevronDown className={`w-4 h-4 text-[#6B645C] transition-transform duration-150 ${isOpen ? 'rotate-180' : ''}`} /></button>{isOpen && <div className="px-6 pb-5 text-sm text-[#6B645C] leading-relaxed border-t border-[#E7E0D6] pt-3">{faq.a}</div>}</div>); })}</div>
+          <div className="text-center mb-12 sm:mb-16"><div className="text-xs uppercase tracking-[0.12em] font-sans font-medium text-[#5C6B80] mb-2">QUESTIONS & ANSWERS</div><h2 className="text-2xl sm:text-4xl font-serif text-[#10203A]">Frequently asked questions</h2></div>
+          <div className="space-y-4">{faqs.map((faq, idx) => { const isOpen = openFaqIndex === idx; return (<div key={faq.q} className="bg-[#FFFFFF] rounded-[16px] border border-[#D9E2EA] overflow-hidden"><button onClick={() => setOpenFaqIndex(isOpen ? null : idx)} className="w-full min-h-11 px-6 py-4.5 text-left flex items-center justify-between text-base font-serif text-[#10203A] hover:bg-[#FFFFFF] transition-colors cursor-pointer"><span>{faq.q}</span><ChevronDown className={`w-4 h-4 text-[#5C6B80] transition-transform duration-150 ${isOpen ? 'rotate-180' : ''}`} /></button>{isOpen && <div className="px-6 pb-5 text-sm text-[#5C6B80] leading-relaxed border-t border-[#D9E2EA] pt-3">{faq.a}</div>}</div>); })}</div>
         </div>
       </section>
-      <div className="sm:hidden fixed bottom-0 left-0 right-0 z-40 p-4 bg-[#FAF7F2]/95 backdrop-blur-md border-t border-[#E7E0D6]"><button onClick={scrollToSignup} className="w-full min-h-11 inline-flex items-center justify-center gap-2 py-3.5 rounded-[12px] bg-[#0F766E] text-white text-base font-medium shadow-md"><span>Get founding $99/mo</span><ArrowRight className="w-4 h-4" /></button></div>
+      <div className="sm:hidden fixed bottom-0 left-0 right-0 z-40 p-4 bg-white/95 backdrop-blur-md border-t border-[#D9E2EA]"><button onClick={scrollToSignup} className="w-full min-h-11 inline-flex items-center justify-center gap-2 py-3.5 rounded-full bg-[#E25A48] text-white text-base font-medium shadow-md"><span>Get founding $99/mo</span><ArrowRight className="w-4 h-4" /></button></div>
     </div>
   );
 };
