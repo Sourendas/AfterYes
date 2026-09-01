@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useAudience } from '../context/AudienceContext';
 import { ArrowLeft, CheckCircle2, Play } from 'lucide-react';
 import { AfterYesLogo } from './AfterYesLogo';
-import { initAnalytics, track, trackOnce } from '../utils/analytics';
+import { initAnalytics, trackServer } from '../utils/analytics';
 
 export const ThanksPage: React.FC = () => {
   const { searchParams, latestSubmission, navigate, clearAudience } = useAudience();
@@ -10,37 +10,24 @@ export const ThanksPage: React.FC = () => {
   const isClinic = typeParam === 'clinic' || latestSubmission?.audience === 'clinic';
   const segment = isClinic ? 'clinic' : 'coach';
   const demoPath = isClinic ? '/app/clinic' : '/app/coach';
-  const planValue = isClinic ? 99 : 29;
 
   useEffect(() => {
     initAnalytics();
-    const dedupe = latestSubmission?.id || `${segment}_${latestSubmission?.email || 'anon'}`;
-    trackOnce(`thanks_view_${dedupe}`, 'page_view', {
-      page_path: '/thanks',
-      page_title: 'AfterYes Thanks',
-      segment,
-    });
-    trackOnce(`waitlist_${dedupe}`, 'waitlist_complete', {
-      segment,
-      value: planValue,
-      currency: 'USD',
-      method: 'founding_list',
-    });
-    trackOnce(`lead_${dedupe}`, 'generate_lead', {
-      segment,
-      value: planValue,
-      currency: 'USD',
-    });
-  }, [latestSubmission, segment, planValue]);
+    trackServer(
+      'page_view',
+      { page_path: '/thanks', page_title: 'AfterYes Thanks', segment },
+      { event_id: latestSubmission ? `view_${latestSubmission.id}` : undefined, path: '/thanks' },
+    );
+  }, [latestSubmission, segment]);
 
   const goHome = () => {
-    track('thanks_back_home', { segment });
+    trackServer('thanks_back_home', { segment }, { path: '/thanks' });
     clearAudience();
     navigate('/');
   };
 
   const openDemo = () => {
-    track('thanks_explore_demo', { segment, destination: demoPath });
+    trackServer('thanks_explore_demo', { segment, destination: demoPath }, { path: '/thanks' });
     navigate(demoPath);
   };
 
